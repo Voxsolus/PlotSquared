@@ -2729,7 +2729,6 @@ import java.util.regex.Pattern;
 //       if (!PlotSquared.get().hasPlotArea(location.getWorld())) {
 //            return;
 //        }
-
         Entity victim = event.getEntity();
 /*
         if (victim.getType().equals(EntityType.ITEM_FRAME)) {
