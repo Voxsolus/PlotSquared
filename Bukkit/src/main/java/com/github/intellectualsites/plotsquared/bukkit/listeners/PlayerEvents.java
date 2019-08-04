@@ -2726,9 +2726,9 @@ import java.util.regex.Pattern;
     public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
         Entity damager = event.getDamager();
         Location location = BukkitUtil.getLocation(damager);
-        if (!PlotSquared.get().hasPlotArea(location.getWorld())) {
-            return;
-        }
+//       if (!PlotSquared.get().hasPlotArea(location.getWorld())) {
+//            return;
+//        }
         Entity victim = event.getEntity();
 /*
         if (victim.getType().equals(EntityType.ITEM_FRAME)) {
