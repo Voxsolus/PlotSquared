@@ -100,7 +100,7 @@ import java.util.regex.Pattern;
     public static boolean checkEntity(Entity entity, Plot plot) {
         if (plot == null || !plot.hasOwner() || plot.getFlags().isEmpty() && plot
             .getArea().DEFAULT_FLAGS.isEmpty()) {
-            return false;
+            return true;
         }
         switch (entity.getType()) {
             case PLAYER:
