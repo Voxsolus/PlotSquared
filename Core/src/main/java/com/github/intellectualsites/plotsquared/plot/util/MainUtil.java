@@ -715,7 +715,7 @@ public class MainUtil {
         int num = plot.getConnectedPlots().size();
         String alias = !plot.getAlias().isEmpty() ? plot.getAlias() : Captions.NONE.s();
         Location bot = plot.getCorners()[0];
-        String biome = WorldUtil.IMP.getBiome(plot.getWorldName(), bot.getX(), bot.getZ());
+//        String biome = WorldUtil.IMP.getBiome(plot.getWorldName(), bot.getX(), bot.getZ());
         String trusted = getPlayerList(plot.getTrusted());
         String members = getPlayerList(plot.getMembers());
         String denied = getPlayerList(plot.getDenied());
@@ -734,37 +734,37 @@ public class MainUtil {
         } else {
             seen = Captions.NEVER.s();
         }
-        Optional<String> descriptionFlag = plot.getFlag(Flags.DESCRIPTION);
-        String description = !descriptionFlag.isPresent() ?
-            Captions.NONE.s() :
-            Flags.DESCRIPTION.valueToString(descriptionFlag.get());
-
-        StringBuilder flags = new StringBuilder();
-        HashMap<Flag<?>, Object> flagMap =
-            FlagManager.getPlotFlags(plot.getArea(), plot.getSettings(), true);
-        if (flagMap.isEmpty()) {
-            flags.append(Captions.NONE.s());
-        } else {
-            String prefix = "";
-            for (Entry<Flag<?>, Object> entry : flagMap.entrySet()) {
-                Object value = entry.getValue();
-                if (entry.getKey() instanceof DoubleFlag && !Settings.General.SCIENTIFIC) {
-                    DecimalFormat df = new DecimalFormat("0");
-                    df.setMaximumFractionDigits(340);
-                    value = df.format(value);
-                }
-                flags.append(prefix)
-                    .append(Captions.PLOT_FLAG_LIST.f(entry.getKey().getName(), value));
-                prefix = ", ";
-            }
-        }
+//        Optional<String> descriptionFlag = plot.getFlag(Flags.DESCRIPTION);
+//        String description = !descriptionFlag.isPresent() ?
+//            Captions.NONE.s() :
+//            Flags.DESCRIPTION.valueToString(descriptionFlag.get());
+//
+//        StringBuilder flags = new StringBuilder();
+//        HashMap<Flag<?>, Object> flagMap =
+//            FlagManager.getPlotFlags(plot.getArea(), plot.getSettings(), true);
+//        if (flagMap.isEmpty()) {
+//            flags.append(Captions.NONE.s());
+//        } else {
+//            String prefix = "";
+//            for (Entry<Flag<?>, Object> entry : flagMap.entrySet()) {
+//                Object value = entry.getValue();
+//                if (entry.getKey() instanceof DoubleFlag && !Settings.General.SCIENTIFIC) {
+//                    DecimalFormat df = new DecimalFormat("0");
+//                    df.setMaximumFractionDigits(340);
+//                    value = df.format(value);
+//                }
+//                flags.append(prefix)
+//                    .append(Captions.PLOT_FLAG_LIST.f(entry.getKey().getName(), value));
+//                prefix = ", ";
+//            }
+//        }
         boolean build = plot.isAdded(player.getUUID());
         String owner = plot.getOwners().isEmpty() ? "unowned" : getPlayerList(plot.getOwners());
         info = info.replace("%id%", plot.getId().toString());
         info = info.replace("%alias%", alias);
         info = info.replace("%num%", String.valueOf(num));
         info = info.replace("%desc%", description);
-        info = info.replace("%biome%", biome);
+//        info = info.replace("%biome%", biome);
         info = info.replace("%owner%", owner);
         info = info.replace("%members%", members);
         info = info.replace("%player%", player.getName());
@@ -772,7 +772,7 @@ public class MainUtil {
         info = info.replace("%helpers%", members);
         info = info.replace("%denied%", denied);
         info = info.replace("%seen%", seen);
-        info = info.replace("%flags%", flags);
+ //       info = info.replace("%flags%", flags);
         info = info.replace("%build%", String.valueOf(build));
         info = info.replace("%desc%", "No description set.");
         if (info.contains("%rating%")) {
