@@ -24,9 +24,7 @@ public class Info extends SubCommand {
                 case "trusted":
                 case "alias":
                 case "inv":
-                case "biome":
                 case "denied":
-                case "flags":
                 case "id":
                 case "size":
                 case "members":
@@ -97,7 +95,6 @@ public class Info extends SubCommand {
             inv.setItem(1, new PlotItemStack(388, (short) 0, 1, "&cPlot Info",
                 "&cID: &6" + plot.getId().toString(), "&cOwner: &6" + name,
                 "&cAlias: &6" + plot.getAlias(),
-                "&cBiome: &6" + plot.getBiome().replaceAll("_", "").toLowerCase(),
                 "&cCan Build: &6" + plot.isAdded(uuid),
                 "&cSeen: &6" + MainUtil.secToTime((int) (ExpireManager.IMP.getAge(plot) / 1000)),
                 "&cIs Denied: &6" + plot.isDenied(uuid)));
@@ -110,8 +107,6 @@ public class Info extends SubCommand {
             inv.setItem(1, new PlotItemStack(388, (short) 0, 1, "&cDenied", "&cDenied",
                 "&cAmount: &6" + plot.getDenied().size(),
                 "&8Click to view a list of denied players"));
-            inv.setItem(1, new PlotItemStack(388, (short) 0, 1, "&cFlags", "&cFlags",
-                "&cAmount: &6" + plot.getFlags().size(), "&8Click to view a list of plot flags"));
             inv.openInventory();
             return true;
         }
@@ -161,12 +156,8 @@ public class Info extends SubCommand {
                 return Captions.PLOT_INFO_TRUSTED.s();
             case "alias":
                 return Captions.PLOT_INFO_ALIAS.s();
-            case "biome":
-                return Captions.PLOT_INFO_BIOME.s();
             case "denied":
                 return Captions.PLOT_INFO_DENIED.s();
-            case "flags":
-                return Captions.PLOT_INFO_FLAGS.s();
             case "id":
                 return Captions.PLOT_INFO_ID.s();
             case "size":
