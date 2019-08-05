@@ -35,6 +35,8 @@ public class PlotListener {
         }
         player.setMeta(PlotPlayer.META_LAST_PLOT, plot);
         EventUtil.manager.callEntry(player, plot);
+
+
         if (plot.hasOwner()) {
             Map<Flag<?>, Object> flags = FlagManager.getPlotFlags(plot);
 

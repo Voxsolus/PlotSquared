@@ -132,11 +132,11 @@ public class Info extends SubCommand {
             if (info == null) {
                 if (Settings.Ratings.USE_LIKES) {
                     MainUtil.sendMessage(player,
-                        "&6Categories&7: &amembers&7, &aalias&7, &abiome&7, &aseen&7, &adenied&7, &aflags&7, &aid&7, &asize&7, &atrusted&7, "
+                        "&6Categories&7: &amembers&7, &aalias&7, &aseen&7, &adenied&7, &aid&7, &asize&7, &atrusted&7, "
                             + "&aowner&7, " + " &alikes");
                 } else {
                     MainUtil.sendMessage(player,
-                        "&6Categories&7: &amembers&7, &aalias&7, &abiome&7, &aseen&7, &adenied&7, &aflags&7, &aid&7, &asize&7, &atrusted&7, "
+                        "&6Categories&7: &amembers&7, &aalias&7, &aseen&7, &adenied&7, &aid&7, &asize&7, &atrusted&7, "
                             + "&aowner&7, " + " &arating");
                 }
                 return false;
