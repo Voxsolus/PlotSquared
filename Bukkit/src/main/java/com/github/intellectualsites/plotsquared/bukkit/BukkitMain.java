@@ -149,27 +149,30 @@ public final class BukkitMain extends JavaPlugin implements Listener, IPlotMain 
             final UpdateUtility updateUtility = PlotSquared.get().getUpdateUtility();
             updateUtility
                 .checkForUpdate(this.getPluginVersionString(), ((updateDescription, throwable) -> {
-                    Bukkit.getScheduler().runTask(BukkitMain.this, () -> {
-                        getLogger().info("-------- PlotSquared Update Check --------");
-                        if (throwable != null) {
-                            getLogger().severe(String
-                                .format("Could not check for update. Reason: %s",
-                                    throwable.getMessage()));
-                        } else {
-                            if (updateDescription == null) {
-                                getLogger().info(
-                                    "You appear to be running the latest version of PlotSquared. Congratulations!");
+                    Bukkit.getScheduler().runTask(BukkitMain.this, new Runnable() {
+                        @Override
+                        public void run() {
+                            BukkitMain.this.getLogger().info("-------- PlotSquared Update Check --------");
+                            if (throwable != null) {
+                                BukkitMain.this.getLogger().severe(String
+                                        .format("Could not check for update. Reason: %s",
+                                                throwable.getMessage()));
                             } else {
-                                getLogger()
-                                    .info("There appears to be a PlotSquared update available!");
-                                getLogger().info(String.format("You are running version %s,"
-                                        + " the newest available version is %s",
-                                    getPluginVersionString(), updateDescription.getVersion()));
-                                getLogger().info(
-                                    String.format("Update URL: %s", updateDescription.getUrl()));
+                                if (updateDescription == null) {
+                                    BukkitMain.this.getLogger().info(
+                                            "You appear to be running the latest version of PlotSquared. Congratulations!");
+                                } else {
+                                    BukkitMain.this.getLogger()
+                                            .info("There appears to be a PlotSquared update available!");
+                                    BukkitMain.this.getLogger().info(String.format("You are running version %s,"
+                                                    + " the newest available version is %s",
+                                            BukkitMain.this.getPluginVersionString(), updateDescription.getVersion()));
+                                    BukkitMain.this.getLogger().info(
+                                            String.format("Update URL: %s", updateDescription.getUrl()));
+                                }
                             }
+                            BukkitMain.this.getLogger().info("-------- PlotSquared Update Check --------");
                         }
-                        getLogger().info("-------- PlotSquared Update Check --------");
                     });
                 }));
         } else {

@@ -66,7 +66,11 @@ public class PlotListener {
                             }
                         });
                 } else {
-                    greeting = "";
+                    greeting = greetingFlag.get();
+                    MainUtil.format(Captions.PREFIX_GREETING.s() + greeting, plot, player, false,
+                            new RunnableVal<String>() {
+                                @Override public void run(String value) {
+                                    MainUtil.sendMessage(player, value);
                 }
                 Optional<Boolean> enter = plot.getFlag(Flags.NOTIFY_ENTER);
                 if (enter.isPresent() && enter.get()) {
