@@ -2757,10 +2757,7 @@ import java.util.regex.Pattern;
         return entityDamage(damager, victim, null);
     }
 
-    private boolean entityDamage(Entity damager, Entity victim,
-                                 EntityDamageEvent.DamageCause cause) {
-        return true;
-    }
+
 //    private boolean entityDamage(Entity damager, Entity victim,
 ////        EntityDamageEvent.DamageCause cause) {
 ////        Location dloc = BukkitUtil.getLocation(damager);
@@ -2948,7 +2945,10 @@ import java.util.regex.Pattern;
 ////        }
 ////        return ((vplot != null && Flags.PVE.isTrue(vplot)) || !(damager instanceof Arrow
 ////            && !(victim instanceof Creature)));
-////    }
+    private boolean entityDamage(Entity damager, Entity victim,
+                             EntityDamageEvent.DamageCause cause) {
+        return true;
+    }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerEggThrow(PlayerEggThrowEvent event) {
