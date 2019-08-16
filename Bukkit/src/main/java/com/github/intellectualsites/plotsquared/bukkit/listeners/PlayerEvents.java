@@ -100,7 +100,7 @@ import java.util.regex.Pattern;
     public static boolean checkEntity(Entity entity, Plot plot) {
         if (plot == null || !plot.hasOwner() || plot.getFlags().isEmpty() && plot
             .getArea().DEFAULT_FLAGS.isEmpty()) {
-            return false;
+            return true;
         }
         switch (entity.getType()) {
             case PLAYER:
@@ -1388,7 +1388,7 @@ import java.util.regex.Pattern;
         Block block = event.getBlock();
         Location location = BukkitUtil.getLocation(block.getLocation());
         if (location.isUnownedPlotArea()) {
-            event.setCancelled(true);
+            event.setCancelled(false);
         }
     }
 
@@ -1551,7 +1551,7 @@ import java.util.regex.Pattern;
         } else {
             Plot origin = area.getOwnedPlot(location);
             if (origin == null) {
-                event.setCancelled(true);
+                event.setCancelled(false);
                 return;
             }
             for (int i = blocks.size() - 1; i >= 0; i--) {
@@ -1568,7 +1568,7 @@ import java.util.regex.Pattern;
         }
         Plot origin = area.getPlot(location);
         if (origin == null) {
-            event.setCancelled(true);
+            event.setCancelled(false);
             return;
         }
         for (int i = blocks.size() - 1; i >= 0; i--) {
@@ -2757,193 +2757,197 @@ import java.util.regex.Pattern;
     }
 
     private boolean entityDamage(Entity damager, Entity victim,
-        EntityDamageEvent.DamageCause cause) {
-        Location dloc = BukkitUtil.getLocation(damager);
-        Location vloc = BukkitUtil.getLocation(victim);
-        PlotArea dArea = dloc.getPlotArea();
-        PlotArea vArea;
-        if (dArea != null && dArea.contains(vloc.getX(), vloc.getZ())) {
-            vArea = dArea;
-        } else {
-            vArea = vloc.getPlotArea();
-        }
-        if (dArea == null && vArea == null) {
-            return true;
-        }
+                                 EntityDamageEvent.DamageCause cause){
+        return true;
 
-        Plot dplot;
-        if (dArea != null) {
-            dplot = dArea.getPlot(dloc);
-        } else {
-            dplot = null;
-        }
-        Plot vplot;
-        if (vArea != null) {
-            vplot = vArea.getPlot(vloc);
-        } else {
-            vplot = null;
-        }
-
-        Plot plot;
-        String stub;
-        if (dplot == null && vplot == null) {
-            if (dArea == null) {
-                return true;
-            }
-            plot = null;
-            stub = "road";
-        } else {
-            // Prioritize plots for close to seamless pvp zones
-            if (victim.getTicksLived() > damager.getTicksLived()) {
-                if (dplot == null || !(victim instanceof Player)) {
-                    if (vplot == null) {
-                        plot = dplot;
-                    } else {
-                        plot = vplot;
-                    }
-                } else {
-                    plot = dplot;
-                }
-            } else if (dplot == null || !(victim instanceof Player)) {
-                if (vplot == null) {
-                    plot = dplot;
-                } else {
-                    plot = vplot;
-                }
-            } else if (vplot == null) {
-                plot = dplot;
-            } else {
-                plot = vplot;
-            }
-            if (plot.hasOwner()) {
-                stub = "other";
-            } else {
-                stub = "unowned";
-            }
-        }
-
-        Player player;
-        if (damager instanceof Player) { // attacker is player
-            player = (Player) damager;
-        } else if (damager instanceof Projectile) {
-            Projectile projectile = (Projectile) damager;
-            ProjectileSource shooter = projectile.getShooter();
-            if (shooter instanceof Player) { // shooter is player
-                player = (Player) shooter;
-            } else { // shooter is not player
-                if (shooter instanceof BlockProjectileSource) {
-                    Location sLoc = BukkitUtil
-                        .getLocation(((BlockProjectileSource) shooter).getBlock().getLocation());
-                    dplot = dArea.getPlot(sLoc);
-                }
-                player = null;
-            }
-        } else { // Attacker is not player
-            player = null;
-        }
-        if (player != null) {
-            PlotPlayer plotPlayer = BukkitUtil.getPlayer(player);
-            if (victim instanceof Hanging) { // hanging
-                if (plot != null && (plot.getFlag(Flags.HANGING_BREAK, false) || plot
-                    .isAdded(plotPlayer.getUUID()))) {
-                    if (Settings.Done.RESTRICT_BUILDING && plot.hasFlag(Flags.DONE)) {
-                        if (!Permissions.hasPermission(plotPlayer, Captions.PERMISSION_ADMIN_BUILD_OTHER)) {
-                            MainUtil.sendMessage(plotPlayer, Captions.NO_PERMISSION_EVENT, Captions.PERMISSION_ADMIN_BUILD_OTHER);
-                            return false;
-                        }
-                    }
-                    return true;
-                }
-                if (!Permissions.hasPermission(plotPlayer, "plots.admin.destroy." + stub)) {
-                    MainUtil.sendMessage(plotPlayer, Captions.NO_PERMISSION_EVENT,
-                        "plots.admin.destroy." + stub);
-                    return false;
-                }
-            } else if (victim.getType() == EntityType.ARMOR_STAND) {
-                if (plot != null && (plot.getFlag(Flags.MISC_BREAK, false) || plot
-                    .isAdded(plotPlayer.getUUID()))) {
-                    return true;
-                }
-                if (!Permissions.hasPermission(plotPlayer, "plots.admin.destroy." + stub)) {
-                    MainUtil.sendMessage(plotPlayer, Captions.NO_PERMISSION_EVENT,
-                        "plots.admin.destroy." + stub);
-                    return false;
-                }
-            } else if (victim instanceof Monster
-                || victim instanceof EnderDragon) { // victim is monster
-                if (plot != null && (plot.getFlag(Flags.HOSTILE_ATTACK, false) || plot
-                    .getFlag(Flags.PVE, false) || plot.isAdded(plotPlayer.getUUID()))) {
-                    return true;
-                }
-                if (!Permissions.hasPermission(plotPlayer, "plots.admin.pve." + stub)) {
-                    MainUtil.sendMessage(plotPlayer, Captions.NO_PERMISSION_EVENT,
-                        "plots.admin.pve." + stub);
-                    return false;
-                }
-            } else if (victim instanceof Tameable) { // victim is tameable
-                if (plot != null && (plot.getFlag(Flags.TAMED_ATTACK, false) || plot
-                    .getFlag(Flags.PVE, false) || plot.isAdded(plotPlayer.getUUID()))) {
-                    return true;
-                }
-                if (!Permissions.hasPermission(plotPlayer, "plots.admin.pve." + stub)) {
-                    MainUtil.sendMessage(plotPlayer, Captions.NO_PERMISSION_EVENT,
-                        "plots.admin.pve." + stub);
-                    return false;
-                }
-            } else if (victim instanceof Player) {
-                if (plot != null) {
-                    if (Flags.PVP.isFalse(plot) && !Permissions
-                        .hasPermission(plotPlayer, "plots.admin.pvp." + stub)) {
-                        MainUtil.sendMessage(plotPlayer, Captions.NO_PERMISSION_EVENT,
-                            "plots.admin.pvp." + stub);
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-                if (!Permissions.hasPermission(plotPlayer, "plots.admin.pvp." + stub)) {
-                    MainUtil.sendMessage(plotPlayer, Captions.NO_PERMISSION_EVENT,
-                        "plots.admin.pvp." + stub);
-                    return false;
-                }
-            } else if (victim instanceof Creature) { // victim is animal
-                if (plot != null && (plot.getFlag(Flags.ANIMAL_ATTACK, false) || plot
-                    .getFlag(Flags.PVE, false) || plot.isAdded(plotPlayer.getUUID()))) {
-                    return true;
-                }
-                if (!Permissions.hasPermission(plotPlayer, "plots.admin.pve." + stub)) {
-                    MainUtil.sendMessage(plotPlayer, Captions.NO_PERMISSION_EVENT,
-                        "plots.admin.pve." + stub);
-                    return false;
-                }
-            } else if (victim instanceof Vehicle) { // Vehicles are managed in vehicle destroy event
-                return true;
-            } else { // victim is something else
-                if (plot != null && (plot.getFlag(Flags.PVE, false) || plot
-                    .isAdded(plotPlayer.getUUID()))) {
-                    return true;
-                }
-                if (!Permissions.hasPermission(plotPlayer, "plots.admin.pve." + stub)) {
-                    MainUtil.sendMessage(plotPlayer, Captions.NO_PERMISSION_EVENT,
-                        "plots.admin.pve." + stub);
-                    return false;
-                }
-            }
-            return true;
-        } else if (dplot != null && (!dplot.equals(vplot) || Objects
-            .equals(dplot.guessOwner(), vplot.guessOwner()))) {
-            return vplot != null && Flags.PVE.isTrue(vplot);
-        }
-        //disable the firework damage. too much of a headache to support at the moment.
-        if (vplot != null) {
-            if (EntityDamageEvent.DamageCause.ENTITY_EXPLOSION == cause
-                && damager.getType() == EntityType.FIREWORK) {
-                return false;
-            }
-        }
-        return ((vplot != null && Flags.PVE.isTrue(vplot)) || !(damager instanceof Arrow
-            && !(victim instanceof Creature)));
-    }
+    private boolean entityDamage(Entity damager, Entity victim,
+//        EntityDamageEvent.DamageCause cause) {
+//        Location dloc = BukkitUtil.getLocation(damager);
+//        Location vloc = BukkitUtil.getLocation(victim);
+//        PlotArea dArea = dloc.getPlotArea();
+//        PlotArea vArea;
+//        if (dArea != null && dArea.contains(vloc.getX(), vloc.getZ())) {
+//            vArea = dArea;
+//        } else {
+//            vArea = vloc.getPlotArea();
+//        }
+//        if (dArea == null && vArea == null) {
+//            return true;
+//        }
+//
+//        Plot dplot;
+//        if (dArea != null) {
+//            dplot = dArea.getPlot(dloc);
+//        } else {
+//            dplot = null;
+//        }
+//        Plot vplot;
+//        if (vArea != null) {
+//            vplot = vArea.getPlot(vloc);
+//        } else {
+//            vplot = null;
+//        }
+//
+//        Plot plot;
+//        String stub;
+//        if (dplot == null && vplot == null) {
+//            if (dArea == null) {
+//                return true;
+//            }
+//            plot = null;
+//            stub = "road";
+//        } else {
+//            // Prioritize plots for close to seamless pvp zones
+//            if (victim.getTicksLived() > damager.getTicksLived()) {
+//                if (dplot == null || !(victim instanceof Player)) {
+//                    if (vplot == null) {
+//                        plot = dplot;
+//                    } else {
+//                        plot = vplot;
+//                    }
+//                } else {
+//                    plot = dplot;
+//                }
+//            } else if (dplot == null || !(victim instanceof Player)) {
+//                if (vplot == null) {
+//                    plot = dplot;
+//                } else {
+//                    plot = vplot;
+//                }
+//            } else if (vplot == null) {
+//                plot = dplot;
+//            } else {
+//                plot = vplot;
+//            }
+//            if (plot.hasOwner()) {
+//                stub = "other";
+//            } else {
+//                stub = "unowned";
+//            }
+//        }
+//
+//        Player player;
+//        if (damager instanceof Player) { // attacker is player
+//            player = (Player) damager;
+//        } else if (damager instanceof Projectile) {
+//            Projectile projectile = (Projectile) damager;
+//            ProjectileSource shooter = projectile.getShooter();
+//            if (shooter instanceof Player) { // shooter is player
+//                player = (Player) shooter;
+//            } else { // shooter is not player
+//                if (shooter instanceof BlockProjectileSource) {
+//                    Location sLoc = BukkitUtil
+//                        .getLocation(((BlockProjectileSource) shooter).getBlock().getLocation());
+//                    dplot = dArea.getPlot(sLoc);
+//                }
+//                player = null;
+//            }
+//        } else { // Attacker is not player
+//            player = null;
+//        }
+//        if (player != null) {
+//            PlotPlayer plotPlayer = BukkitUtil.getPlayer(player);
+//            if (victim instanceof Hanging) { // hanging
+//                if (plot != null && (plot.getFlag(Flags.HANGING_BREAK, false) || plot
+//                    .isAdded(plotPlayer.getUUID()))) {
+//                    if (Settings.Done.RESTRICT_BUILDING && plot.hasFlag(Flags.DONE)) {
+//                        if (!Permissions.hasPermission(plotPlayer, Captions.PERMISSION_ADMIN_BUILD_OTHER)) {
+//                            MainUtil.sendMessage(plotPlayer, Captions.NO_PERMISSION_EVENT, Captions.PERMISSION_ADMIN_BUILD_OTHER);
+//                            return false;
+//                        }
+//                    }
+//                    return true;
+//                }
+//                if (!Permissions.hasPermission(plotPlayer, "plots.admin.destroy." + stub)) {
+//                    MainUtil.sendMessage(plotPlayer, Captions.NO_PERMISSION_EVENT,
+//                        "plots.admin.destroy." + stub);
+//                    return false;
+//                }
+//            } else if (victim.getType() == EntityType.ARMOR_STAND) {
+//                if (plot != null && (plot.getFlag(Flags.MISC_BREAK, false) || plot
+//                    .isAdded(plotPlayer.getUUID()))) {
+//                    return true;
+//                }
+//                if (!Permissions.hasPermission(plotPlayer, "plots.admin.destroy." + stub)) {
+//                    MainUtil.sendMessage(plotPlayer, Captions.NO_PERMISSION_EVENT,
+//                        "plots.admin.destroy." + stub);
+//                    return false;
+//                }
+//            } else if (victim instanceof Monster
+//                || victim instanceof EnderDragon) { // victim is monster
+//                if (plot != null && (plot.getFlag(Flags.HOSTILE_ATTACK, false) || plot
+//                    .getFlag(Flags.PVE, false) || plot.isAdded(plotPlayer.getUUID()))) {
+//                    return true;
+//                }
+//                if (!Permissions.hasPermission(plotPlayer, "plots.admin.pve." + stub)) {
+//                    MainUtil.sendMessage(plotPlayer, Captions.NO_PERMISSION_EVENT,
+//                        "plots.admin.pve." + stub);
+//                    return false;
+//                }
+//            } else if (victim instanceof Tameable) { // victim is tameable
+//                if (plot != null && (plot.getFlag(Flags.TAMED_ATTACK, false) || plot
+//                    .getFlag(Flags.PVE, false) || plot.isAdded(plotPlayer.getUUID()))) {
+//                    return true;
+//                }
+//                if (!Permissions.hasPermission(plotPlayer, "plots.admin.pve." + stub)) {
+//                    MainUtil.sendMessage(plotPlayer, Captions.NO_PERMISSION_EVENT,
+//                        "plots.admin.pve." + stub);
+//                    return false;
+//                }
+//            } else if (victim instanceof Player) {
+//                if (plot != null) {
+//                    if (Flags.PVP.isFalse(plot) && !Permissions
+//                        .hasPermission(plotPlayer, "plots.admin.pvp." + stub)) {
+//                        MainUtil.sendMessage(plotPlayer, Captions.NO_PERMISSION_EVENT,
+//                            "plots.admin.pvp." + stub);
+//                        return false;
+//                    } else {
+//                        return true;
+//                    }
+//                }
+//                if (!Permissions.hasPermission(plotPlayer, "plots.admin.pvp." + stub)) {
+//                    MainUtil.sendMessage(plotPlayer, Captions.NO_PERMISSION_EVENT,
+//                        "plots.admin.pvp." + stub);
+//                    return false;
+//                }
+//            } else if (victim instanceof Creature) { // victim is animal
+//                if (plot != null && (plot.getFlag(Flags.ANIMAL_ATTACK, false) || plot
+//                    .getFlag(Flags.PVE, false) || plot.isAdded(plotPlayer.getUUID()))) {
+//                    return true;
+//                }
+//                if (!Permissions.hasPermission(plotPlayer, "plots.admin.pve." + stub)) {
+//                    MainUtil.sendMessage(plotPlayer, Captions.NO_PERMISSION_EVENT,
+//                        "plots.admin.pve." + stub);
+//                    return false;
+//                }
+//            } else if (victim instanceof Vehicle) { // Vehicles are managed in vehicle destroy event
+//                return true;
+//            } else { // victim is something else
+//                if (plot != null && (plot.getFlag(Flags.PVE, false) || plot
+//                    .isAdded(plotPlayer.getUUID()))) {
+//                    return true;
+//                }
+//                if (!Permissions.hasPermission(plotPlayer, "plots.admin.pve." + stub)) {
+//                    MainUtil.sendMessage(plotPlayer, Captions.NO_PERMISSION_EVENT,
+//                        "plots.admin.pve." + stub);
+//                    return false;
+//                }
+//            }
+//            return true;
+//        } else if (dplot != null && (!dplot.equals(vplot) || Objects
+//            .equals(dplot.guessOwner(), vplot.guessOwner()))) {
+//            return vplot != null && Flags.PVE.isTrue(vplot);
+//        }
+//        //disable the firework damage. too much of a headache to support at the moment.
+//        if (vplot != null) {
+//            if (EntityDamageEvent.DamageCause.ENTITY_EXPLOSION == cause
+//                && damager.getType() == EntityType.FIREWORK) {
+//                return false;
+//            }
+//        }
+//        return ((vplot != null && Flags.PVE.isTrue(vplot)) || !(damager instanceof Arrow
+//            && !(victim instanceof Creature)));
+//    }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerEggThrow(PlayerEggThrowEvent event) {
