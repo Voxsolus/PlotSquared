@@ -2752,6 +2752,7 @@ import java.util.regex.Pattern;
         }
     }
 
+
     private boolean entityDamage(Entity damager, Entity victim) {
         return entityDamage(damager, victim, null);
     }
