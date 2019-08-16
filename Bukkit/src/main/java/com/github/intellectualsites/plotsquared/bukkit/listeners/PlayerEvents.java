@@ -104,7 +104,7 @@ import java.util.regex.Pattern;
         }
         switch (entity.getType()) {
             case PLAYER:
-                return false;
+                return true;
             case ARROW:
             case DRAGON_FIREBALL:
             case DROPPED_ITEM:
