@@ -1133,20 +1133,20 @@ import java.util.regex.Pattern;
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onPeskyMobsChangeTheWorldLikeWTFEvent(EntityChangeBlockEvent event) {
-        Entity e = event.getEntity();
-        if (!(e instanceof FallingBlock)) {
-            Location location = BukkitUtil.getLocation(event.getBlock().getLocation());
-            PlotArea area = location.getPlotArea();
-            if (area != null) {
-                Plot plot = area.getOwnedPlot(location);
-                if (plot != null && Flags.MOB_BREAK.isTrue(plot)) {
-                    return;
-                }
-                event.setCancelled(true);
-            }
-        }
-    }
+//    public void onPeskyMobsChangeTheWorldLikeWTFEvent(EntityChangeBlockEvent event) {
+//        Entity e = event.getEntity();
+//        if (!(e instanceof FallingBlock)) {
+//            Location location = BukkitUtil.getLocation(event.getBlock().getLocation());
+//            PlotArea area = location.getPlotArea();
+//            if (area != null) {
+//                Plot plot = area.getOwnedPlot(location);
+//                if (plot != null && Flags.MOB_BREAK.isTrue(plot)) {
+//                    return;
+//                }
+//                event.setCancelled(true);
+//            }
+//        }
+//    }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onEntityBlockForm(EntityBlockFormEvent event) {
