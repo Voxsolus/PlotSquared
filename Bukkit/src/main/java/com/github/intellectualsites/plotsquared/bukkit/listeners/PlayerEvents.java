@@ -104,7 +104,7 @@ import java.util.regex.Pattern;
         }
         switch (entity.getType()) {
             case PLAYER:
-                return false;
+                return true;
             case ARROW:
             case DRAGON_FIREBALL:
             case DROPPED_ITEM:
@@ -364,87 +364,87 @@ import java.util.regex.Pattern;
         //}
     }
 
-//    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
-//    public void onPhysicsEvent(BlockPhysicsEvent event) {
-//        switch (event.getChangedType()) {
-//            case COMPARATOR: {
-//                Block block = event.getBlock();
-//                Location location = BukkitUtil.getLocation(block.getLocation());
-//                if (location.isPlotArea()) {
-//                    return;
-//                }
-//                Plot plot = location.getOwnedPlotAbs();
-//                if (plot == null) {
-//                    return;
-//                }
-//                if (Flags.REDSTONE.isFalse(plot)) {
-//                    event.setCancelled(true);
-//                }
-//                return;
-//            }
-//            case ANVIL:
-//            case DRAGON_EGG:
-//            case GRAVEL:
-//            case SAND:
-//            case TURTLE_EGG:
-//            case TURTLE_HELMET:
-//            case TURTLE_SPAWN_EGG: {
-//                Block block = event.getBlock();
-//                Location location = BukkitUtil.getLocation(block.getLocation());
-//                PlotArea area = location.getPlotArea();
-//                if (area == null) {
-//                    return;
-//                }
-//                Plot plot = area.getOwnedPlotAbs(location);
-//                if (plot == null) {
-//                    return;
-//                }
-//                if (Flags.DISABLE_PHYSICS.isFalse(plot)) {
-//                    event.setCancelled(true);
-//                }
-//                return;
-//            }
-//            default:
-//                if (Settings.Redstone.DETECT_INVALID_EDGE_PISTONS) {
-//                    Block block = event.getBlock();
-//                    switch (block.getType()) {
-//                        case PISTON:
-//                        case STICKY_PISTON:
-//                            org.bukkit.block.data.Directional piston =
-//                                (org.bukkit.block.data.Directional) block.getBlockData();
-//                            Location location = BukkitUtil.getLocation(block.getLocation());
-//                            PlotArea area = location.getPlotArea();
-//                            if (area == null) {
-//                                return;
-//                            }
-//                            Plot plot = area.getOwnedPlotAbs(location);
-//                            if (plot == null) {
-//                                return;
-//                            }
-//                            switch (piston.getFacing()) {
-//                                case EAST:
-//                                    location.setX(location.getX() + 1);
-//                                    break;
-//                                case SOUTH:
-//                                    location.setX(location.getX() - 1);
-//                                    break;
-//                                case WEST:
-//                                    location.setZ(location.getZ() + 1);
-//                                    break;
-//                                case NORTH:
-//                                    location.setZ(location.getZ() - 1);
-//                                    break;
-//                            }
-//                            Plot newPlot = area.getOwnedPlotAbs(location);
-//                            if (!plot.equals(newPlot)) {
-//                                event.setCancelled(true);
-//                                return;
-//                            }
-//                    }
-//                }
-//                break;
-//        }
-//    }
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+    public void onPhysicsEvent(BlockPhysicsEvent event) {
+        switch (event.getChangedType()) {
+            case COMPARATOR: {
+                Block block = event.getBlock();
+                Location location = BukkitUtil.getLocation(block.getLocation());
+                if (location.isPlotArea()) {
+                    return;
+                }
+                Plot plot = location.getOwnedPlotAbs();
+                if (plot == null) {
+                    return;
+                }
+                if (Flags.REDSTONE.isFalse(plot)) {
+                    event.setCancelled(true);
+                }
+                return;
+            }
+            case ANVIL:
+            case DRAGON_EGG:
+            case GRAVEL:
+            case SAND:
+            case TURTLE_EGG:
+            case TURTLE_HELMET:
+            case TURTLE_SPAWN_EGG: {
+                Block block = event.getBlock();
+                Location location = BukkitUtil.getLocation(block.getLocation());
+                PlotArea area = location.getPlotArea();
+                if (area == null) {
+                    return;
+                }
+                Plot plot = area.getOwnedPlotAbs(location);
+                if (plot == null) {
+                    return;
+                }
+                if (Flags.DISABLE_PHYSICS.isFalse(plot)) {
+                    event.setCancelled(true);
+                }
+                return;
+            }
+            default:
+                if (Settings.Redstone.DETECT_INVALID_EDGE_PISTONS) {
+                    Block block = event.getBlock();
+                    switch (block.getType()) {
+                        case PISTON:
+                        case STICKY_PISTON:
+                            org.bukkit.block.data.Directional piston =
+                                (org.bukkit.block.data.Directional) block.getBlockData();
+                            Location location = BukkitUtil.getLocation(block.getLocation());
+                            PlotArea area = location.getPlotArea();
+                            if (area == null) {
+                                return;
+                            }
+                            Plot plot = area.getOwnedPlotAbs(location);
+                            if (plot == null) {
+                                return;
+                            }
+                            switch (piston.getFacing()) {
+                                case EAST:
+                                    location.setX(location.getX() + 1);
+                                    break;
+                                case SOUTH:
+                                    location.setX(location.getX() - 1);
+                                    break;
+                                case WEST:
+                                    location.setZ(location.getZ() + 1);
+                                    break;
+                                case NORTH:
+                                    location.setZ(location.getZ() - 1);
+                                    break;
+                            }
+                            Plot newPlot = area.getOwnedPlotAbs(location);
+                            if (!plot.equals(newPlot)) {
+                                event.setCancelled(true);
+                                return;
+                            }
+                    }
+                }
+                break;
+        }
+    }
 
     @EventHandler public void onProjectileLaunch(ProjectileLaunchEvent event) {
         Projectile entity = event.getEntity();
@@ -1132,21 +1132,21 @@ import java.util.regex.Pattern;
         }
     }
 
-//    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-//    public void onPeskyMobsChangeTheWorldLikeWTFEvent(EntityChangeBlockEvent event) {
-//        Entity e = event.getEntity();
-//        if (!(e instanceof FallingBlock)) {
-//            Location location = BukkitUtil.getLocation(event.getBlock().getLocation());
-//            PlotArea area = location.getPlotArea();
-//            if (area != null) {
-//                Plot plot = area.getOwnedPlot(location);
-//                if (plot != null && Flags.MOB_BREAK.isTrue(plot)) {
-//                    return;
-//                }
-//                event.setCancelled(true);
-//            }
-//        }
-//    }
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onPeskyMobsChangeTheWorldLikeWTFEvent(EntityChangeBlockEvent event) {
+        Entity e = event.getEntity();
+        if (!(e instanceof FallingBlock)) {
+            Location location = BukkitUtil.getLocation(event.getBlock().getLocation());
+            PlotArea area = location.getPlotArea();
+            if (area != null) {
+                Plot plot = area.getOwnedPlot(location);
+                if (plot != null && Flags.MOB_BREAK.isTrue(plot)) {
+                    return;
+                }
+                event.setCancelled(true);
+            }
+        }
+    }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onEntityBlockForm(EntityBlockFormEvent event) {
@@ -1268,55 +1268,55 @@ import java.util.regex.Pattern;
         }
     }
 
-//    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-//    public void onBlockDamage(BlockDamageEvent event) {
-//        Player player = event.getPlayer();
-//        Location location = BukkitUtil.getLocation(event.getBlock().getLocation());
-//        if (player == null) {
-//            if (location.isPlotRoad()) {
-//                event.setCancelled(true);
-//                return;
-//            }
-//        }
-//        PlotArea area = location.getPlotArea();
-//        if (area == null) {
-//            return;
-//        }
-//        Plot plot = area.getPlot(location);
-//        if (plot != null) {
-//            if (location.getY() == 0) {
-//                event.setCancelled(true);
-//                return;
-//            }
-//            if (!plot.hasOwner()) {
-//                PlotPlayer plotPlayer = BukkitUtil.getPlayer(player);
-//                if (Permissions
-//                    .hasPermission(plotPlayer, Captions.PERMISSION_ADMIN_DESTROY_UNOWNED)) {
-//                    return;
-//                }
-//                event.setCancelled(true);
-//                return;
-//            }
-//            PlotPlayer plotPlayer = BukkitUtil.getPlayer(player);
-//            if (!plot.isAdded(plotPlayer.getUUID())) {
-//                Optional<HashSet<PlotBlock>> destroy = plot.getFlag(Flags.BREAK);
-//                Block block = event.getBlock();
-//                if (destroy.isPresent() && destroy.get()
-//                    .contains(PlotBlock.get(block.getType().name())) || Permissions
-//                    .hasPermission(plotPlayer, Captions.PERMISSION_ADMIN_DESTROY_OTHER)) {
-//                    return;
-//                }
-//                event.setCancelled(true);
-//                return;
-//            }
-//            return;
-//        }
-//        PlotPlayer plotPlayer = BukkitUtil.getPlayer(player);
-//        if (Permissions.hasPermission(plotPlayer, Captions.PERMISSION_ADMIN_DESTROY_ROAD)) {
-//            return;
-//        }
-//        event.setCancelled(true);
-//    }
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onBlockDamage(BlockDamageEvent event) {
+        Player player = event.getPlayer();
+        Location location = BukkitUtil.getLocation(event.getBlock().getLocation());
+        if (player == null) {
+            if (location.isPlotRoad()) {
+                event.setCancelled(true);
+                return;
+            }
+        }
+        PlotArea area = location.getPlotArea();
+        if (area == null) {
+            return;
+        }
+        Plot plot = area.getPlot(location);
+        if (plot != null) {
+            if (location.getY() == 0) {
+                event.setCancelled(true);
+                return;
+            }
+            if (!plot.hasOwner()) {
+                PlotPlayer plotPlayer = BukkitUtil.getPlayer(player);
+                if (Permissions
+                    .hasPermission(plotPlayer, Captions.PERMISSION_ADMIN_DESTROY_UNOWNED)) {
+                    return;
+                }
+                event.setCancelled(true);
+                return;
+            }
+            PlotPlayer plotPlayer = BukkitUtil.getPlayer(player);
+            if (!plot.isAdded(plotPlayer.getUUID())) {
+                Optional<HashSet<PlotBlock>> destroy = plot.getFlag(Flags.BREAK);
+                Block block = event.getBlock();
+                if (destroy.isPresent() && destroy.get()
+                    .contains(PlotBlock.get(block.getType().name())) || Permissions
+                    .hasPermission(plotPlayer, Captions.PERMISSION_ADMIN_DESTROY_OTHER)) {
+                    return;
+                }
+                event.setCancelled(true);
+                return;
+            }
+            return;
+        }
+        PlotPlayer plotPlayer = BukkitUtil.getPlayer(player);
+        if (Permissions.hasPermission(plotPlayer, Captions.PERMISSION_ADMIN_DESTROY_ROAD)) {
+            return;
+        }
+        event.setCancelled(true);
+    }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onFade(BlockFadeEvent event) {
@@ -1529,61 +1529,62 @@ import java.util.regex.Pattern;
         }
     }
 
-  //  @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-//    public void onStructureGrow(StructureGrowEvent event) {
-//        if (!PlotSquared.get().hasPlotArea(event.getWorld().getName())) {
-//            return;
-//        }
-//        List<BlockState> blocks = event.getBlocks();
-//        if (blocks.isEmpty()) {
-//            return;
-//        }
-//        Location location = BukkitUtil.getLocation(blocks.get(0).getLocation());
-//        PlotArea area = location.getPlotArea();
-//        if (area == null) {
-//            for (int i = blocks.size() - 1; i >= 0; i--) {
-//                location = BukkitUtil.getLocation(blocks.get(i).getLocation());
-//                if (location.isPlotArea()) {
-//                    blocks.remove(i);
-//                }
-//            }
-//            return;
-//        } else {
-//            Plot origin = area.getOwnedPlot(location);
-//            if (origin == null) {
-//                return true;
-//            }
-//            for (int i = blocks.size() - 1; i >= 0; i--) {
-//                location = BukkitUtil.getLocation(blocks.get(i).getLocation());
-//                if (!area.contains(location.getX(), location.getZ())) {
-//                    blocks.remove(i);
-//                    continue;
-//                }
-//                Plot plot = area.getOwnedPlot(location);
-//                if (!Objects.equals(plot, origin)) {
-//                    event.getBlocks().remove(i);
-//                }
-//            }
-//        }
-//        Plot origin = area.getPlot(location);
-//        if (origin == null) {
-//            event.setCancelled(false);
-//            return;
-//        }
-//        for (int i = blocks.size() - 1; i >= 0; i--) {
-//            location = BukkitUtil.getLocation(blocks.get(i).getLocation());
-//            Plot plot = area.getOwnedPlot(location);
-//            /*
-//             * plot -> the base plot of the merged area
-//             * origin -> the plot where the event gets called
-//             */
-//
-//            // Are plot and origin not the same AND are both plots merged
-//            if (!Objects.equals(plot, origin) && (!plot.isMerged() && !origin.isMerged())) {
-//                event.getBlocks().remove(i);
-//            }
-//        }
-//    }
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onStructureGrow(StructureGrowEvent event) {
+        if (!PlotSquared.get().hasPlotArea(event.getWorld().getName())) {
+            return;
+        }
+        List<BlockState> blocks = event.getBlocks();
+        if (blocks.isEmpty()) {
+            return;
+        }
+        Location location = BukkitUtil.getLocation(blocks.get(0).getLocation());
+        PlotArea area = location.getPlotArea();
+        if (area == null) {
+            for (int i = blocks.size() - 1; i >= 0; i--) {
+                location = BukkitUtil.getLocation(blocks.get(i).getLocation());
+                if (location.isPlotArea()) {
+                    blocks.remove(i);
+                }
+            }
+            return;
+        } else {
+            Plot origin = area.getOwnedPlot(location);
+            if (origin == null) {
+                event.setCancelled(false);
+                return;
+            }
+            for (int i = blocks.size() - 1; i >= 0; i--) {
+                location = BukkitUtil.getLocation(blocks.get(i).getLocation());
+                if (!area.contains(location.getX(), location.getZ())) {
+                    blocks.remove(i);
+                    continue;
+                }
+                Plot plot = area.getOwnedPlot(location);
+                if (!Objects.equals(plot, origin)) {
+                    event.getBlocks().remove(i);
+                }
+            }
+        }
+        Plot origin = area.getPlot(location);
+        if (origin == null) {
+            event.setCancelled(false);
+            return;
+        }
+        for (int i = blocks.size() - 1; i >= 0; i--) {
+            location = BukkitUtil.getLocation(blocks.get(i).getLocation());
+            Plot plot = area.getOwnedPlot(location);
+            /*
+             * plot -> the base plot of the merged area
+             * origin -> the plot where the event gets called
+             */
+
+            // Are plot and origin not the same AND are both plots merged
+            if (!Objects.equals(plot, origin) && (!plot.isMerged() && !origin.isMerged())) {
+                event.getBlocks().remove(i);
+            }
+        }
+    }
 
     @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -2201,43 +2202,43 @@ import java.util.regex.Pattern;
         }
     }
 
-//    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
-//    public void onEntityFall(EntityChangeBlockEvent event) {
-//        if (event.getEntityType() != EntityType.FALLING_BLOCK) {
-//            return true;
-//        }
-//        Block block = event.getBlock();
-//        World world = block.getWorld();
-//        String worldName = world.getName();
-//        if (!PlotSquared.get().hasPlotArea(worldName)) {
-//            return;
-//        }
-//        Location location = BukkitUtil.getLocation(block.getLocation());
-//        PlotArea area = location.getPlotArea();
-//        if (area == null) {
-//            return;
-//        }
-//        Plot plot = area.getOwnedPlotAbs(location);
-//        if (plot == null || plot.getFlag(Flags.DISABLE_PHYSICS, false)) {
-//            event.setCancelled(true);
-//            return;
-//        }
-//        if (event.getTo().hasGravity()) {
-//            Entity entity = event.getEntity();
-//            List<MetadataValue> meta = entity.getMetadata("plot");
-//            if (meta.isEmpty()) {
-//                return;
-//            }
-//            Plot origin = (Plot) meta.get(0).value();
-//            if (origin != null && !origin.equals(plot)) {
-//                event.setCancelled(true);
-//                entity.remove();
-//            }
-//        } else if (event.getTo() == Material.AIR) {
-//            event.getEntity()
-//                .setMetadata("plot", new FixedMetadataValue((Plugin) PlotSquared.get().IMP, plot));
-//        }
-//    }
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+    public void onEntityFall(EntityChangeBlockEvent event) {
+        if (event.getEntityType() != EntityType.FALLING_BLOCK) {
+            return;
+        }
+        Block block = event.getBlock();
+        World world = block.getWorld();
+        String worldName = world.getName();
+        if (!PlotSquared.get().hasPlotArea(worldName)) {
+            return;
+        }
+        Location location = BukkitUtil.getLocation(block.getLocation());
+        PlotArea area = location.getPlotArea();
+        if (area == null) {
+            return;
+        }
+        Plot plot = area.getOwnedPlotAbs(location);
+        if (plot == null || plot.getFlag(Flags.DISABLE_PHYSICS, false)) {
+            event.setCancelled(true);
+            return;
+        }
+        if (event.getTo().hasGravity()) {
+            Entity entity = event.getEntity();
+            List<MetadataValue> meta = entity.getMetadata("plot");
+            if (meta.isEmpty()) {
+                return;
+            }
+            Plot origin = (Plot) meta.get(0).value();
+            if (origin != null && !origin.equals(plot)) {
+                event.setCancelled(false);
+                entity.remove(false);
+            }
+        } else if (event.getTo() == Material.AIR) {
+            event.getEntity()
+                .setMetadata("plot", new FixedMetadataValue((Plugin) PlotSquared.get().IMP, plot));
+        }
+    }
 
     @EventHandler public void onPrime(ExplosionPrimeEvent event) {
         this.lastRadius = event.getRadius() + 1;
