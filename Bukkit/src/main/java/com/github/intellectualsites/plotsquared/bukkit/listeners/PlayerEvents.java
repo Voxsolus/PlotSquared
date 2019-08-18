@@ -1383,14 +1383,14 @@ import java.util.regex.Pattern;
         }
     }
 
-//    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-//    public void onGrow(BlockGrowEvent event) {
-//        Block block = event.getBlock();
-//        Location location = BukkitUtil.getLocation(block.getLocation());
-//        if (location.isUnownedPlotArea()) {
-//            event.setCancelled(false);
-//        }
-//    }
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onGrow(BlockGrowEvent event) {
+        Block block = event.getBlock();
+        Location location = BukkitUtil.getLocation(block.getLocation());
+        if (location.isUnownedPlotArea()) {
+            event.setCancelled(false);
+        }
+    }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockPistonExtend(BlockPistonExtendEvent event) {
@@ -1529,7 +1529,7 @@ import java.util.regex.Pattern;
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+  //  @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 //    public void onStructureGrow(StructureGrowEvent event) {
 //        if (!PlotSquared.get().hasPlotArea(event.getWorld().getName())) {
 //            return;
