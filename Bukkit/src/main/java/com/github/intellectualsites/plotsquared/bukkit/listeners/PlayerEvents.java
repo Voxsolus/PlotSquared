@@ -364,87 +364,87 @@ import java.util.regex.Pattern;
         //}
     }
 
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
-    public void onPhysicsEvent(BlockPhysicsEvent event) {
-        switch (event.getChangedType()) {
-            case COMPARATOR: {
-                Block block = event.getBlock();
-                Location location = BukkitUtil.getLocation(block.getLocation());
-                if (location.isPlotArea()) {
-                    return;
-                }
-                Plot plot = location.getOwnedPlotAbs();
-                if (plot == null) {
-                    return;
-                }
-                if (Flags.REDSTONE.isFalse(plot)) {
-                    event.setCancelled(true);
-                }
-                return;
-            }
-            case ANVIL:
-            case DRAGON_EGG:
-            case GRAVEL:
-            case SAND:
-            case TURTLE_EGG:
-            case TURTLE_HELMET:
-            case TURTLE_SPAWN_EGG: {
-                Block block = event.getBlock();
-                Location location = BukkitUtil.getLocation(block.getLocation());
-                PlotArea area = location.getPlotArea();
-                if (area == null) {
-                    return;
-                }
-                Plot plot = area.getOwnedPlotAbs(location);
-                if (plot == null) {
-                    return;
-                }
-                if (Flags.DISABLE_PHYSICS.isFalse(plot)) {
-                    event.setCancelled(true);
-                }
-                return;
-            }
-            default:
-                if (Settings.Redstone.DETECT_INVALID_EDGE_PISTONS) {
-                    Block block = event.getBlock();
-                    switch (block.getType()) {
-                        case PISTON:
-                        case STICKY_PISTON:
-                            org.bukkit.block.data.Directional piston =
-                                (org.bukkit.block.data.Directional) block.getBlockData();
-                            Location location = BukkitUtil.getLocation(block.getLocation());
-                            PlotArea area = location.getPlotArea();
-                            if (area == null) {
-                                return;
-                            }
-                            Plot plot = area.getOwnedPlotAbs(location);
-                            if (plot == null) {
-                                return;
-                            }
-                            switch (piston.getFacing()) {
-                                case EAST:
-                                    location.setX(location.getX() + 1);
-                                    break;
-                                case SOUTH:
-                                    location.setX(location.getX() - 1);
-                                    break;
-                                case WEST:
-                                    location.setZ(location.getZ() + 1);
-                                    break;
-                                case NORTH:
-                                    location.setZ(location.getZ() - 1);
-                                    break;
-                            }
-                            Plot newPlot = area.getOwnedPlotAbs(location);
-                            if (!plot.equals(newPlot)) {
-                                event.setCancelled(true);
-                                return;
-                            }
-                    }
-                }
-                break;
-        }
-    }
+//    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+//    public void onPhysicsEvent(BlockPhysicsEvent event) {
+//        switch (event.getChangedType()) {
+//            case COMPARATOR: {
+//                Block block = event.getBlock();
+//                Location location = BukkitUtil.getLocation(block.getLocation());
+//                if (location.isPlotArea()) {
+//                    return;
+//                }
+//                Plot plot = location.getOwnedPlotAbs();
+//                if (plot == null) {
+//                    return;
+//                }
+//                if (Flags.REDSTONE.isFalse(plot)) {
+//                    event.setCancelled(true);
+//                }
+//                return;
+//            }
+//            case ANVIL:
+//            case DRAGON_EGG:
+//            case GRAVEL:
+//            case SAND:
+//            case TURTLE_EGG:
+//            case TURTLE_HELMET:
+//            case TURTLE_SPAWN_EGG: {
+//                Block block = event.getBlock();
+//                Location location = BukkitUtil.getLocation(block.getLocation());
+//                PlotArea area = location.getPlotArea();
+//                if (area == null) {
+//                    return;
+//                }
+//                Plot plot = area.getOwnedPlotAbs(location);
+//                if (plot == null) {
+//                    return;
+//                }
+//                if (Flags.DISABLE_PHYSICS.isFalse(plot)) {
+//                    event.setCancelled(true);
+//                }
+//                return;
+//            }
+//            default:
+//                if (Settings.Redstone.DETECT_INVALID_EDGE_PISTONS) {
+//                    Block block = event.getBlock();
+//                    switch (block.getType()) {
+//                        case PISTON:
+//                        case STICKY_PISTON:
+//                            org.bukkit.block.data.Directional piston =
+//                                (org.bukkit.block.data.Directional) block.getBlockData();
+//                            Location location = BukkitUtil.getLocation(block.getLocation());
+//                            PlotArea area = location.getPlotArea();
+//                            if (area == null) {
+//                                return;
+//                            }
+//                            Plot plot = area.getOwnedPlotAbs(location);
+//                            if (plot == null) {
+//                                return;
+//                            }
+//                            switch (piston.getFacing()) {
+//                                case EAST:
+//                                    location.setX(location.getX() + 1);
+//                                    break;
+//                                case SOUTH:
+//                                    location.setX(location.getX() - 1);
+//                                    break;
+//                                case WEST:
+//                                    location.setZ(location.getZ() + 1);
+//                                    break;
+//                                case NORTH:
+//                                    location.setZ(location.getZ() - 1);
+//                                    break;
+//                            }
+//                            Plot newPlot = area.getOwnedPlotAbs(location);
+//                            if (!plot.equals(newPlot)) {
+//                                event.setCancelled(true);
+//                                return;
+//                            }
+//                    }
+//                }
+//                break;
+//        }
+//    }
 
     @EventHandler public void onProjectileLaunch(ProjectileLaunchEvent event) {
         Projectile entity = event.getEntity();
@@ -1132,7 +1132,7 @@ import java.util.regex.Pattern;
         }
     }
 
-   // @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+//    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 //    public void onPeskyMobsChangeTheWorldLikeWTFEvent(EntityChangeBlockEvent event) {
 //        Entity e = event.getEntity();
 //        if (!(e instanceof FallingBlock)) {
@@ -1268,55 +1268,55 @@ import java.util.regex.Pattern;
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onBlockDamage(BlockDamageEvent event) {
-        Player player = event.getPlayer();
-        Location location = BukkitUtil.getLocation(event.getBlock().getLocation());
-        if (player == null) {
-            if (location.isPlotRoad()) {
-                event.setCancelled(true);
-                return;
-            }
-        }
-        PlotArea area = location.getPlotArea();
-        if (area == null) {
-            return;
-        }
-        Plot plot = area.getPlot(location);
-        if (plot != null) {
-            if (location.getY() == 0) {
-                event.setCancelled(true);
-                return;
-            }
-            if (!plot.hasOwner()) {
-                PlotPlayer plotPlayer = BukkitUtil.getPlayer(player);
-                if (Permissions
-                    .hasPermission(plotPlayer, Captions.PERMISSION_ADMIN_DESTROY_UNOWNED)) {
-                    return;
-                }
-                event.setCancelled(true);
-                return;
-            }
-            PlotPlayer plotPlayer = BukkitUtil.getPlayer(player);
-            if (!plot.isAdded(plotPlayer.getUUID())) {
-                Optional<HashSet<PlotBlock>> destroy = plot.getFlag(Flags.BREAK);
-                Block block = event.getBlock();
-                if (destroy.isPresent() && destroy.get()
-                    .contains(PlotBlock.get(block.getType().name())) || Permissions
-                    .hasPermission(plotPlayer, Captions.PERMISSION_ADMIN_DESTROY_OTHER)) {
-                    return;
-                }
-                event.setCancelled(true);
-                return;
-            }
-            return;
-        }
-        PlotPlayer plotPlayer = BukkitUtil.getPlayer(player);
-        if (Permissions.hasPermission(plotPlayer, Captions.PERMISSION_ADMIN_DESTROY_ROAD)) {
-            return;
-        }
-        event.setCancelled(true);
-    }
+//    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+//    public void onBlockDamage(BlockDamageEvent event) {
+//        Player player = event.getPlayer();
+//        Location location = BukkitUtil.getLocation(event.getBlock().getLocation());
+//        if (player == null) {
+//            if (location.isPlotRoad()) {
+//                event.setCancelled(true);
+//                return;
+//            }
+//        }
+//        PlotArea area = location.getPlotArea();
+//        if (area == null) {
+//            return;
+//        }
+//        Plot plot = area.getPlot(location);
+//        if (plot != null) {
+//            if (location.getY() == 0) {
+//                event.setCancelled(true);
+//                return;
+//            }
+//            if (!plot.hasOwner()) {
+//                PlotPlayer plotPlayer = BukkitUtil.getPlayer(player);
+//                if (Permissions
+//                    .hasPermission(plotPlayer, Captions.PERMISSION_ADMIN_DESTROY_UNOWNED)) {
+//                    return;
+//                }
+//                event.setCancelled(true);
+//                return;
+//            }
+//            PlotPlayer plotPlayer = BukkitUtil.getPlayer(player);
+//            if (!plot.isAdded(plotPlayer.getUUID())) {
+//                Optional<HashSet<PlotBlock>> destroy = plot.getFlag(Flags.BREAK);
+//                Block block = event.getBlock();
+//                if (destroy.isPresent() && destroy.get()
+//                    .contains(PlotBlock.get(block.getType().name())) || Permissions
+//                    .hasPermission(plotPlayer, Captions.PERMISSION_ADMIN_DESTROY_OTHER)) {
+//                    return;
+//                }
+//                event.setCancelled(true);
+//                return;
+//            }
+//            return;
+//        }
+//        PlotPlayer plotPlayer = BukkitUtil.getPlayer(player);
+//        if (Permissions.hasPermission(plotPlayer, Captions.PERMISSION_ADMIN_DESTROY_ROAD)) {
+//            return;
+//        }
+//        event.setCancelled(true);
+//    }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onFade(BlockFadeEvent event) {
@@ -1383,7 +1383,7 @@ import java.util.regex.Pattern;
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+//    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 //    public void onGrow(BlockGrowEvent event) {
 //        Block block = event.getBlock();
 //        Location location = BukkitUtil.getLocation(block.getLocation());
