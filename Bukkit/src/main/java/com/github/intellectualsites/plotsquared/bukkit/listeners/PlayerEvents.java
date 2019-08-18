@@ -1132,7 +1132,7 @@ import java.util.regex.Pattern;
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+   // @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 //    public void onPeskyMobsChangeTheWorldLikeWTFEvent(EntityChangeBlockEvent event) {
 //        Entity e = event.getEntity();
 //        if (!(e instanceof FallingBlock)) {
