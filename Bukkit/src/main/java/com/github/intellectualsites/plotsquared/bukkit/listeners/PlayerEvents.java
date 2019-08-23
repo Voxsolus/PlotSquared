@@ -437,7 +437,7 @@ import java.util.regex.Pattern;
                             }
                             Plot newPlot = area.getOwnedPlotAbs(location);
                             if (!plot.equals(newPlot)) {
-                                event.setCancelled(false);
+                                event.setCancelled(true);
                                 return;
                             }
                     }
@@ -2349,7 +2349,7 @@ import java.util.regex.Pattern;
                         || igniteCause == BlockIgniteEvent.IgniteCause.LAVA) && (
                         !plot.getFlag(Flags.BLOCK_IGNITION).orElse(false) || plotIgnited == null
                             || !plotIgnited.equals(plot))) {
-                    event.setCancelled(false);
+                    event.setCancelled(true);
                 }
             }
         }
