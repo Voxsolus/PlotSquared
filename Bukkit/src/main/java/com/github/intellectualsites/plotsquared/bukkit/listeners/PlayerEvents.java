@@ -437,7 +437,7 @@ import java.util.regex.Pattern;
                             }
                             Plot newPlot = area.getOwnedPlotAbs(location);
                             if (!plot.equals(newPlot)) {
-                                event.setCancelled(true);
+                                event.setCancelled(false);
                                 return;
                             }
                     }
@@ -1405,7 +1405,7 @@ import java.util.regex.Pattern;
             }
             for (Block block1 : event.getBlocks()) {
                 if (BukkitUtil.getLocation(block1.getLocation().add(relative)).isPlotArea()) {
-                    event.setCancelled(true);
+                    event.setCancelled(false);
                     return;
                 }
             }
@@ -1446,7 +1446,7 @@ import java.util.regex.Pattern;
                     for (Block pulled : event.getBlocks()) {
                         location = BukkitUtil.getLocation(pulled.getLocation());
                         if (location.isPlotArea()) {
-                            event.setCancelled(true);
+                            event.setCancelled(false);
                             return;
                         }
                     }
@@ -1459,7 +1459,7 @@ import java.util.regex.Pattern;
                 location = BukkitUtil.getLocation(block.getLocation()
                     .add(dir.getModX() * 2, dir.getModY() * 2, dir.getModZ() * 2));
                 if (location.isPlotArea()) {
-                    event.setCancelled(true);
+                    event.setCancelled(false);
                     return;
                 }
             }
@@ -1481,13 +1481,13 @@ import java.util.regex.Pattern;
                         pulled.getLocation().add(dir.getModX(), dir.getModY(), dir.getModZ()));
                     Location to = BukkitUtil.getLocation(pulled.getLocation());
                     if (!area.contains(to.getX(), to.getZ())) {
-                        event.setCancelled(true);
+                        event.setCancelled(false);
                         return;
                     }
                     Plot fromPlot = area.getOwnedPlot(from);
                     Plot toPlot = area.getOwnedPlot(to);
                     if (!Objects.equals(fromPlot, toPlot)) {
-                        event.setCancelled(true);
+                        event.setCancelled(false);
                         return;
                     }
                 }
@@ -1499,12 +1499,12 @@ import java.util.regex.Pattern;
             location = BukkitUtil.getLocation(
                 block.getLocation().add(dir.getModX() * 2, dir.getModY() * 2, dir.getModZ() * 2));
             if (!area.contains(location)) {
-                event.setCancelled(true);
+                event.setCancelled(false);
                 return;
             }
             Plot newPlot = area.getOwnedPlot(location);
             if (!Objects.equals(plot, newPlot)) {
-                event.setCancelled(true);
+                event.setCancelled(false);
             }
         }
     }
@@ -2349,7 +2349,7 @@ import java.util.regex.Pattern;
                         || igniteCause == BlockIgniteEvent.IgniteCause.LAVA) && (
                         !plot.getFlag(Flags.BLOCK_IGNITION).orElse(false) || plotIgnited == null
                             || !plotIgnited.equals(plot))) {
-                    event.setCancelled(true);
+                    event.setCancelled(false);
                 }
             }
         }
