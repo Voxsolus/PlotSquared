@@ -2349,7 +2349,7 @@ import java.util.regex.Pattern;
                         || igniteCause == BlockIgniteEvent.IgniteCause.LAVA) && (
                         !plot.getFlag(Flags.BLOCK_IGNITION).orElse(false) || plotIgnited == null
                             || !plotIgnited.equals(plot))) {
-                    event.setCancelled(true);
+                    event.setCancelled(false);
                 }
             }
         }
