@@ -437,7 +437,7 @@ import java.util.regex.Pattern;
                             }
                             Plot newPlot = area.getOwnedPlotAbs(location);
                             if (!plot.equals(newPlot)) {
-                                event.setCancelled(true);
+                                event.setCancelled(false);
                                 return;
                             }
                     }
