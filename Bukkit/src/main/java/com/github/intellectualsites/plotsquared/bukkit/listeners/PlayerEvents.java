@@ -148,7 +148,7 @@ import java.util.regex.Pattern;
             case MINECART_HOPPER:
             case MINECART_MOB_SPAWNER:
             case MINECART_TNT:
-                return true;//EntityUtil.checkEntity(plot, Flags.ENTITY_CAP, Flags.VEHICLE_CAP);
+                return EntityUtil.checkEntity();
             case BAT:
             case CHICKEN:
             case CAT:
@@ -783,7 +783,7 @@ import java.util.regex.Pattern;
                             if (!meta.isEmpty()) {
                                 Plot origin = (Plot) meta.get(0).value();
                                 if (!origin.getBasePlot(false).equals(toPlot)) {
-                                    vehicle.remove();
+                                    vehicle.remove(false);
                                 }
                             } else if (toPlot != null) {
                                 vehicle.setMetadata("plot",
