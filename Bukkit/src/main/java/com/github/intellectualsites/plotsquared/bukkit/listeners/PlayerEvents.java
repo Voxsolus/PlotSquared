@@ -2232,7 +2232,6 @@ import java.util.regex.Pattern;
             Plot origin = (Plot) meta.get(0).value();
             if (origin != null && !origin.equals(plot)) {
                 event.setCancelled(false);
-                entity.remove(false);
             }
         } else if (event.getTo() == Material.AIR) {
             event.getEntity()
