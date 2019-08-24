@@ -1843,7 +1843,7 @@ import java.util.regex.Pattern;
         PlotPlayer pp = BukkitUtil.getPlayer(player);
         PlotArea area = pp.getPlotAreaAbs();
         if (area == null) {
-            return true;
+            return;
         }
         PlayerBlockEventType eventType = null;
         BukkitLazyBlock lb;
@@ -2111,7 +2111,7 @@ import java.util.regex.Pattern;
                         case SPRUCE_BOAT:
                         case TNT_MINECART:
                             eventType = PlayerBlockEventType.PLACE_VEHICLE;
-                            return;
+                            return true;
                         default:
                             eventType = PlayerBlockEventType.INTERACT_BLOCK;
                             break;
