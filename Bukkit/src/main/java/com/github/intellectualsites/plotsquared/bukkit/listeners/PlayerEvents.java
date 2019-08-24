@@ -783,7 +783,7 @@ import java.util.regex.Pattern;
                             if (!meta.isEmpty()) {
                                 Plot origin = (Plot) meta.get(0).value();
                                 if (!origin.getBasePlot(false).equals(toPlot)) {
-                                    vehicle.remove();
+                                    vehicle.remove(false);
                                 }
                             } else if (toPlot != null) {
                                 vehicle.setMetadata("plot",
