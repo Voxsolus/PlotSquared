@@ -367,8 +367,8 @@ public final class BukkitMain extends JavaPlugin implements Listener, IPlotMain 
                                         if (entity.hasMetadata("ps-tmp-teleport")) {
                                             continue;
                                         }
-                                        iterator.remove();
-                                        entity.remove();
+                                        //iterator.remove();
+                                        //entity.remove();
                                     }
                                     continue;
                                 }
@@ -381,8 +381,8 @@ public final class BukkitMain extends JavaPlugin implements Listener, IPlotMain 
                                     if (entity.hasMetadata("ps-tmp-teleport")) {
                                         continue;
                                     }
-                                    iterator.remove();
-                                    entity.remove();
+                                    //iterator.remove();
+                                    //entity.remove();
                                 }
                             }
                             continue;
