@@ -140,15 +140,15 @@ import java.util.regex.Pattern;
             case PAINTING:
                 return EntityUtil.checkEntity(plot, Flags.ENTITY_CAP, Flags.MISC_CAP);
             // misc
-//            case BOAT:
-//            case MINECART:
-//            case MINECART_CHEST:
-//            case MINECART_COMMAND:
-//            case MINECART_FURNACE:
-//            case MINECART_HOPPER:
-//            case MINECART_MOB_SPAWNER:
-//            case MINECART_TNT:
-//                return EntityUtil.checkEntity(plot, Flags.ENTITY_CAP, Flags.VEHICLE_CAP);
+            case BOAT:
+            case MINECART:
+            case MINECART_CHEST:
+            case MINECART_COMMAND:
+            case MINECART_FURNACE:
+            case MINECART_HOPPER:
+            case MINECART_MOB_SPAWNER:
+            case MINECART_TNT:
+                return EntityUtil.checkEntity(plot, Flags.ENTITY_CAP, Flags.VEHICLE_CAP);
             case BAT:
             case CHICKEN:
             case CAT:
