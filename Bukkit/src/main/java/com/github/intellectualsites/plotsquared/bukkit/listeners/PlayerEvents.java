@@ -2098,20 +2098,20 @@ import java.util.regex.Pattern;
                         case TROPICAL_FISH:
                             eventType = PlayerBlockEventType.EAT;
                             break;
-                        case ACACIA_BOAT:
-                        case BIRCH_BOAT:
-                        case CHEST_MINECART:
-                        case COMMAND_BLOCK_MINECART:
-                        case DARK_OAK_BOAT:
-                        case FURNACE_MINECART:
-                        case HOPPER_MINECART:
-                        case JUNGLE_BOAT:
-                        case MINECART:
-                        case OAK_BOAT:
-                        case SPRUCE_BOAT:
-                        case TNT_MINECART:
-                            eventType = PlayerBlockEventType.PLACE_VEHICLE;
-                            break;
+//                        case ACACIA_BOAT:
+//                        case BIRCH_BOAT:
+//                        case CHEST_MINECART:
+//                        case COMMAND_BLOCK_MINECART:
+//                        case DARK_OAK_BOAT:
+//                        case FURNACE_MINECART:
+//                        case HOPPER_MINECART:
+//                        case JUNGLE_BOAT:
+//                        case MINECART:
+//                        case OAK_BOAT:
+//                        case SPRUCE_BOAT:
+//                        case TNT_MINECART:
+//                            eventType = PlayerBlockEventType.PLACE_VEHICLE;
+//                            break;
                         default:
                             eventType = PlayerBlockEventType.INTERACT_BLOCK;
                             break;
