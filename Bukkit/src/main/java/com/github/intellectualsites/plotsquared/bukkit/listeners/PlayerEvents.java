@@ -1413,7 +1413,7 @@ import java.util.regex.Pattern;
         }
         Plot plot = area.getOwnedPlot(location);
         if (plot == null) {
-            event.setCancelled(true);
+            event.setCancelled(false);
             return;
         }
         List<Block> blocks = event.getBlocks();
@@ -1421,12 +1421,12 @@ import java.util.regex.Pattern;
             Location bloc = BukkitUtil.getLocation(block1.getLocation());
             if (!area.contains(bloc.getX(), bloc.getZ()) || !area
                 .contains(bloc.getX() + relative.getBlockX(), bloc.getZ() + relative.getBlockZ())) {
-                event.setCancelled(true);
+                event.setCancelled(false);
                 return;
             }
             if (!plot.equals(area.getOwnedPlot(bloc)) || !plot.equals(area.getOwnedPlot(
                 bloc.add(relative.getBlockX(), relative.getBlockY(), relative.getBlockZ())))) {
-                event.setCancelled(true);
+                event.setCancelled(false);
                 return;
             }
         }
@@ -2232,7 +2232,6 @@ import java.util.regex.Pattern;
             Plot origin = (Plot) meta.get(0).value();
             if (origin != null && !origin.equals(plot)) {
                 event.setCancelled(false);
-                entity.remove();
             }
         } else if (event.getTo() == Material.AIR) {
             event.getEntity()
