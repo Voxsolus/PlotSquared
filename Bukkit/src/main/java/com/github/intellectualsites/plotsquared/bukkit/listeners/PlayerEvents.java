@@ -2111,7 +2111,7 @@ import java.util.regex.Pattern;
                         case SPRUCE_BOAT:
                         case TNT_MINECART:
                             eventType = PlayerBlockEventType.PLACE_VEHICLE;
-                           // break;
+                            break false;
                         default:
                             eventType = PlayerBlockEventType.INTERACT_BLOCK;
                             break;
