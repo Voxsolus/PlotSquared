@@ -715,87 +715,87 @@ import java.util.regex.Pattern;
         playerMove(event);
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void vehicleMove(VehicleMoveEvent event) throws IllegalAccessException {
-        final org.bukkit.Location from = event.getFrom();
-        final org.bukkit.Location to = event.getTo();
-
-        int toX, toZ;
-        if ((toX = MathMan.roundInt(to.getX())) != MathMan.roundInt(from.getX())
-                | (toZ = MathMan.roundInt(to.getZ())) != MathMan.roundInt(from.getZ())) {
-            Vehicle vehicle = event.getVehicle();
-
-            // Check allowed
-            if (!vehicle.getPassengers().isEmpty()) {
-                Entity passenger = vehicle.getPassengers().get(0);
-
-                if (passenger instanceof Player) {
-                    final Player player = (Player) passenger;
-                    // reset
-                    if (moveTmp == null) {
-                        moveTmp = new PlayerMoveEvent(null, from, to);
-                    }
-                    moveTmp.setFrom(from);
-                    moveTmp.setTo(to);
-                    moveTmp.setCancelled(false);
-                    fieldPlayer.set(moveTmp, player);
-
-                    List<Entity> passengers = vehicle.getPassengers();
-
-                    this.playerMove(moveTmp);
-                    org.bukkit.Location dest;
-                    if (moveTmp.isCancelled()) {
-                        dest = from;
-                    } else if (MathMan.roundInt(moveTmp.getTo().getX()) != toX
-                            || MathMan.roundInt(moveTmp.getTo().getZ()) != toZ) {
-                        dest = to;
-                    } else {
-                        dest = null;
-                    }
-                    if (dest != null) {
-                        if (passengers != null) {
-                            vehicle.eject();
-                            vehicle.setVelocity(new Vector(0d, 0d, 0d));
-                            vehicle.teleport(dest);
-                            passengers.forEach(vehicle::addPassenger);
-                        } else {
-                            vehicle.eject();
-                            vehicle.setVelocity(new Vector(0d, 0d, 0d));
-                            vehicle.teleport(dest);
-                            vehicle.addPassenger(player);
-                        }
-                        return;
-                    }
-                }
-                if (Settings.Enabled_Components.KILL_ROAD_VEHICLES) {
-                    switch (vehicle.getType()) {
-                        case BOAT:
-                        case ENDER_CRYSTAL:
-                        case MINECART:
-                        case MINECART_CHEST:
-                        case MINECART_COMMAND:
-                        case MINECART_FURNACE:
-                        case MINECART_HOPPER:
-                        case MINECART_MOB_SPAWNER:
-                        case MINECART_TNT: {
-                            List<MetadataValue> meta = vehicle.getMetadata("plot");
-                            Plot toPlot = BukkitUtil.getLocation(to).getPlot();
-                            if (!meta.isEmpty()) {
-                                Plot origin = (Plot) meta.get(0).value();
-                                if (!origin.getBasePlot(false).equals(toPlot)) {
-                                    vehicle.remove(false);
-                                }
-                            } else if (toPlot != null) {
-                                vehicle.setMetadata("plot",
-                                        new FixedMetadataValue((Plugin) PlotSquared.get().IMP, toPlot));
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
-    }
+//    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+//    public void vehicleMove(VehicleMoveEvent event) throws IllegalAccessException {
+//        final org.bukkit.Location from = event.getFrom();
+//        final org.bukkit.Location to = event.getTo();
+//
+//        int toX, toZ;
+//        if ((toX = MathMan.roundInt(to.getX())) != MathMan.roundInt(from.getX())
+//                | (toZ = MathMan.roundInt(to.getZ())) != MathMan.roundInt(from.getZ())) {
+//            Vehicle vehicle = event.getVehicle();
+//
+//            // Check allowed
+//            if (!vehicle.getPassengers().isEmpty()) {
+//                Entity passenger = vehicle.getPassengers().get(0);
+//
+//                if (passenger instanceof Player) {
+//                    final Player player = (Player) passenger;
+//                    // reset
+//                    if (moveTmp == null) {
+//                        moveTmp = new PlayerMoveEvent(null, from, to);
+//                    }
+//                    moveTmp.setFrom(from);
+//                    moveTmp.setTo(to);
+//                    moveTmp.setCancelled(false);
+//                    fieldPlayer.set(moveTmp, player);
+//
+//                    List<Entity> passengers = vehicle.getPassengers();
+//
+//                    this.playerMove(moveTmp);
+//                    org.bukkit.Location dest;
+//                    if (moveTmp.isCancelled()) {
+//                        dest = from;
+//                    } else if (MathMan.roundInt(moveTmp.getTo().getX()) != toX
+//                            || MathMan.roundInt(moveTmp.getTo().getZ()) != toZ) {
+//                        dest = to;
+//                    } else {
+//                        dest = null;
+//                    }
+//                    if (dest != null) {
+//                        if (passengers != null) {
+//                            vehicle.eject();
+//                            vehicle.setVelocity(new Vector(0d, 0d, 0d));
+//                            vehicle.teleport(dest);
+//                            passengers.forEach(vehicle::addPassenger);
+//                        } else {
+//                            vehicle.eject();
+//                            vehicle.setVelocity(new Vector(0d, 0d, 0d));
+//                            vehicle.teleport(dest);
+//                            vehicle.addPassenger(player);
+//                        }
+//                        return;
+//                    }
+//                }
+//                if (Settings.Enabled_Components.KILL_ROAD_VEHICLES) {
+//                    switch (vehicle.getType()) {
+//                        case BOAT:
+//                        case ENDER_CRYSTAL:
+//                        case MINECART:
+//                        case MINECART_CHEST:
+//                        case MINECART_COMMAND:
+//                        case MINECART_FURNACE:
+//                        case MINECART_HOPPER:
+//                        case MINECART_MOB_SPAWNER:
+//                        case MINECART_TNT: {
+//                            List<MetadataValue> meta = vehicle.getMetadata("plot");
+//                            Plot toPlot = BukkitUtil.getLocation(to).getPlot();
+//                            if (!meta.isEmpty()) {
+//                                Plot origin = (Plot) meta.get(0).value();
+//                                if (!origin.getBasePlot(false).equals(toPlot)) {
+//                                    vehicle.remove(false);
+//                                }
+//                            } else if (toPlot != null) {
+//                                vehicle.setMetadata("plot",
+//                                        new FixedMetadataValue((Plugin) PlotSquared.get().IMP, toPlot));
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//
+//        }
+//    }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void playerMove(PlayerMoveEvent event) {
