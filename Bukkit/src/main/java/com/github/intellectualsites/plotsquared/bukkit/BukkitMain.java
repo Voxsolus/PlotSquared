@@ -357,35 +357,35 @@ public final class BukkitMain extends JavaPlugin implements Listener, IPlotMain 
                         case MINECART_MOB_SPAWNER:
                         case ENDER_CRYSTAL:
                         case MINECART_TNT:
-                        case BOAT:
-                            if (Settings.Enabled_Components.KILL_ROAD_VEHICLES) {
-                                com.github.intellectualsites.plotsquared.plot.object.Location
-                                    location = BukkitUtil.getLocation(entity.getLocation());
-                                Plot plot = location.getPlot();
-                                if (plot == null) {
-                                    if (location.isPlotArea()) {
-                                        if (entity.hasMetadata("ps-tmp-teleport")) {
-                                            continue;
-                                        }
-                                        //iterator.remove();
-                                        //entity.remove();
-                                    }
-                                    continue;
-                                }
-                                List<MetadataValue> meta = entity.getMetadata("plot");
-                                if (meta.isEmpty()) {
-                                    continue;
-                                }
-                                Plot origin = (Plot) meta.get(0).value();
-                                if (!plot.equals(origin.getBasePlot(false))) {
-                                    if (entity.hasMetadata("ps-tmp-teleport")) {
-                                        continue;
-                                    }
-                                    //iterator.remove();
-                                    //entity.remove();
-                                }
-                            }
-                            continue;
+//                        case BOAT:
+//                            if (Settings.Enabled_Components.KILL_ROAD_VEHICLES) {
+//                                com.github.intellectualsites.plotsquared.plot.object.Location
+//                                    location = BukkitUtil.getLocation(entity.getLocation());
+//                                Plot plot = location.getPlot();
+//                                if (plot == null) {
+//                                    if (location.isPlotArea()) {
+//                                        if (entity.hasMetadata("ps-tmp-teleport")) {
+//                                            continue;
+//                                        }
+//                                        iterator.remove();
+//                                        entity.remove();
+//                                    }
+//                                    continue;
+//                                }
+//                                List<MetadataValue> meta = entity.getMetadata("plot");
+//                                if (meta.isEmpty()) {
+//                                    continue;
+//                                }
+//                                Plot origin = (Plot) meta.get(0).value();
+//                                if (!plot.equals(origin.getBasePlot(false))) {
+//                                    if (entity.hasMetadata("ps-tmp-teleport")) {
+//                                        continue;
+//                                    }
+//                                    iterator.remove();
+//                                    entity.remove();
+//                                }
+//                            }
+//                            continue;
                         case SMALL_FIREBALL:
                         case FIREBALL:
                         case DRAGON_FIREBALL:
