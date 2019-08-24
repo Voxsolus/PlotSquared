@@ -1845,299 +1845,299 @@ import java.util.regex.Pattern;
         if (area == null) {
             return true;
         }
-//        PlayerBlockEventType eventType = null;
-//        BukkitLazyBlock lb;
-//        Location location;
-//        Action action = event.getAction();
-//        switch (action) {
-//            case PHYSICAL: {
-//                eventType = PlayerBlockEventType.TRIGGER_PHYSICAL;
-//                Block block = event.getClickedBlock();
-//                lb = new BukkitLazyBlock(block);
-//                location = BukkitUtil.getLocation(block.getLocation());
-//                break;
-//            }
-//            case RIGHT_CLICK_BLOCK: {
-//                Block block = event.getClickedBlock();
-//                location = BukkitUtil.getLocation(block.getLocation());
-//                Material blockType = block.getType();
-//                switch (blockType) {
-//                    case ACACIA_DOOR:
-//                    case BIRCH_DOOR:
-//                    case DARK_OAK_DOOR:
-//                    case IRON_DOOR:
-//                    case JUNGLE_DOOR:
-//                    case OAK_DOOR:
-//                    case SPRUCE_DOOR:
-//
-//                    case ACACIA_TRAPDOOR:
-//                    case BIRCH_TRAPDOOR:
-//                    case DARK_OAK_TRAPDOOR:
-//                    case IRON_TRAPDOOR:
-//                    case JUNGLE_TRAPDOOR:
-//                    case OAK_TRAPDOOR:
-//                    case SPRUCE_TRAPDOOR:
-//
-//                    case CHEST:
-//                    case ENDER_CHEST:
-//                    case TRAPPED_CHEST:
-//
-//                    case ACACIA_FENCE_GATE:
-//                    case BIRCH_FENCE_GATE:
-//                    case DARK_OAK_FENCE_GATE:
-//                    case OAK_FENCE_GATE:
-//                    case JUNGLE_FENCE_GATE:
-//                    case SPRUCE_FENCE_GATE:
-//
-//                    case ACACIA_BUTTON:
-//                    case BIRCH_BUTTON:
-//                    case DARK_OAK_BUTTON:
-//                    case JUNGLE_BUTTON:
-//                    case OAK_BUTTON:
-//                    case SPRUCE_BUTTON:
-//                    case STONE_BUTTON:
-//
-//                    case BLACK_BED:
-//                    case BLUE_BED:
-//                    case BROWN_BED:
-//                    case CYAN_BED:
-//                    case GRAY_BED:
-//                    case GREEN_BED:
-//                    case LIGHT_BLUE_BED:
-//                    case LIGHT_GRAY_BED:
-//                    case LIME_BED:
-//                    case MAGENTA_BED:
-//                    case ORANGE_BED:
-//                    case PINK_BED:
-//                    case PURPLE_BED:
-//                    case RED_BED:
-//                    case WHITE_BED:
-//                    case YELLOW_BED:
-//
-//                    case BLACK_BANNER:
-//                    case BLACK_WALL_BANNER:
-//                    case BLUE_BANNER:
-//                    case BLUE_WALL_BANNER:
-//                    case BROWN_BANNER:
-//                    case BROWN_WALL_BANNER:
-//                    case CYAN_BANNER:
-//                    case CYAN_WALL_BANNER:
-//                    case GRAY_BANNER:
-//                    case GRAY_WALL_BANNER:
-//                    case GREEN_BANNER:
-//                    case GREEN_WALL_BANNER:
-//                    case LIGHT_BLUE_BANNER:
-//                    case LIGHT_BLUE_WALL_BANNER:
-//                    case LIGHT_GRAY_BANNER:
-//                    case LIGHT_GRAY_WALL_BANNER:
-//                    case LIME_BANNER:
-//                    case LIME_WALL_BANNER:
-//                    case MAGENTA_BANNER:
-//                    case MAGENTA_WALL_BANNER:
-//                    case ORANGE_BANNER:
-//                    case ORANGE_WALL_BANNER:
-//                    case PINK_BANNER:
-//                    case PINK_WALL_BANNER:
-//                    case PURPLE_BANNER:
-//                    case PURPLE_WALL_BANNER:
-//                    case RED_BANNER:
-//                    case RED_WALL_BANNER:
-//                    case WHITE_BANNER:
-//                    case WHITE_WALL_BANNER:
-//                    case YELLOW_BANNER:
-//                    case YELLOW_WALL_BANNER:
-//
-//                    case BLACK_SHULKER_BOX:
-//                    case BLUE_SHULKER_BOX:
-//                    case BROWN_SHULKER_BOX:
-//                    case CYAN_SHULKER_BOX:
-//                    case GRAY_SHULKER_BOX:
-//                    case GREEN_SHULKER_BOX:
-//                    case LIGHT_BLUE_SHULKER_BOX:
-//                    case LIGHT_GRAY_SHULKER_BOX:
-//                    case LIME_SHULKER_BOX:
-//                    case MAGENTA_SHULKER_BOX:
-//                    case ORANGE_SHULKER_BOX:
-//                    case PINK_SHULKER_BOX:
-//                    case PURPLE_SHULKER_BOX:
-//                    case RED_SHULKER_BOX:
-//                    case WHITE_SHULKER_BOX:
-//                    case YELLOW_SHULKER_BOX:
-//
-//                    case CHAIN_COMMAND_BLOCK:
-//                    case REPEATING_COMMAND_BLOCK:
-//
-//                    case LEGACY_SIGN:
-//                    case LEGACY_WALL_SIGN:
-//                    case OAK_SIGN:
-//                    case ACACIA_SIGN:
-//                    case ACACIA_WALL_SIGN:
-//                    case BIRCH_SIGN:
-//                    case BIRCH_WALL_SIGN:
-//                    case DARK_OAK_SIGN:
-//                    case DARK_OAK_WALL_SIGN:
-//                    case JUNGLE_SIGN:
-//                    case JUNGLE_WALL_SIGN:
-//                    case OAK_WALL_SIGN:
-//                    case SPRUCE_SIGN:
-//                    case SPRUCE_WALL_SIGN:
-//
-//                    case REDSTONE_TORCH:
-//                    case REDSTONE_WALL_TORCH:
-//
-//                    case TURTLE_EGG:
-//                    case TURTLE_HELMET:
-//                    case TURTLE_SPAWN_EGG:
-//
-//                    case ANVIL:
-//                    case BEACON:
-//                    case BREWING_STAND:
-//                    case CAKE:
-//                    case COMMAND_BLOCK:
-//                    case COMPARATOR:
-//                    case CRAFTING_TABLE:
-//                        //todo re-evaluate adding lectern here
-//                    case LECTERN:
-//                    case GRINDSTONE:
-//                    case LOOM:
-//                    case SMOKER:
-//                    case STONECUTTER:
-//                    case DISPENSER:
-//                    case DROPPER:
-//                    case ENCHANTING_TABLE:
-//                    case FURNACE:
-//                    case BLAST_FURNACE:
-//                    case HOPPER:
-//                    case JUKEBOX:
-//                    case LEVER:
-//                    case NOTE_BLOCK:
-//                    case REDSTONE_ORE:
-//                        eventType = PlayerBlockEventType.INTERACT_BLOCK;
-//                        break;
-//                    case DRAGON_EGG:
-//                        eventType = PlayerBlockEventType.TELEPORT_OBJECT;
-//                        break;
-//                    default:
-//                        if (blockType.isInteractable()) {
-//                            eventType = PlayerBlockEventType.INTERACT_BLOCK;
-//                        }
-//                }
-//                lb = new BukkitLazyBlock(PlotBlock.get(block.getType().toString()));
-//                if (eventType != null && (eventType != PlayerBlockEventType.INTERACT_BLOCK
-//                        || !player.isSneaking())) {
-//                    break;
-//                }
-//                ItemStack hand = player.getInventory().getItemInMainHand();
-//                ItemStack offHand = player.getInventory().getItemInOffHand();
-//                Material type = (hand == null) ? Material.AIR : hand.getType();
-//                Material offType = (offHand == null) ? Material.AIR : offHand.getType();
-//                if ((type == Material.AIR && offType != Material.AIR && !player.isSneaking()
-//                        && blockType.isInteractable()) || (type == Material.AIR
-//                        && offType == Material.AIR)) {
-//                    eventType = PlayerBlockEventType.INTERACT_BLOCK;
-//                    break;
-//                }
-//                if (type == Material.AIR) {
-//                    type = offType;
-//                }
-//                if (type.isBlock()) {
-//                    location = BukkitUtil
-//                            .getLocation(block.getRelative(event.getBlockFace()).getLocation());
-//                    eventType = PlayerBlockEventType.PLACE_BLOCK;
-//                    break;
-//                }
-//                lb = new BukkitLazyBlock(PlotBlock.get(type.toString()));
-//                if (type.toString().toLowerCase().endsWith("egg")) {
-//                    eventType = PlayerBlockEventType.SPAWN_MOB;
-//                } else {
-//                    switch (type) {
-//                        case FIREWORK_ROCKET:
-//                        case FIREWORK_STAR:
-//                            eventType = PlayerBlockEventType.SPAWN_MOB;
-//                            break;
-//                        case ARMOR_STAND:
-//                            location = BukkitUtil
-//                                    .getLocation(block.getRelative(event.getBlockFace()).getLocation());
-//                            eventType = PlayerBlockEventType.PLACE_MISC;
-//                            break;
-//                        case BOOK:
-//                        case ENCHANTED_BOOK:
-//                        case KNOWLEDGE_BOOK:
-//                        case WRITABLE_BOOK:
-//                        case WRITTEN_BOOK:
-//                            eventType = PlayerBlockEventType.READ;
-//                            break;
-//                        case APPLE:
-//                        case BAKED_POTATO:
-//                        case BEEF:
-//                        case BREAD:
-//                        case CARROT:
-//                        case CHICKEN:
-//                        case COD:
-//                        case COOKED_BEEF:
-//                        case COOKED_CHICKEN:
-//                        case COOKED_COD:
-//                        case COOKED_MUTTON:
-//                        case COOKED_PORKCHOP:
-//                        case COOKED_RABBIT:
-//                        case COOKED_SALMON:
-//                        case COOKIE:
-//                        case GOLDEN_CARROT:
-//                        case MUSHROOM_STEW:
-//                        case MUTTON:
-//                        case POISONOUS_POTATO:
-//                        case PORKCHOP:
-//                        case POTATO:
-//                        case POTION:
-//                        case PUFFERFISH:
-//                        case PUMPKIN_PIE:
-//                        case RABBIT:
-//                        case RABBIT_FOOT:
-//                        case RABBIT_STEW:
-//                        case SALMON:
-//                        case TROPICAL_FISH:
-//                            eventType = PlayerBlockEventType.EAT;
-//                            break;
-//                        case ACACIA_BOAT:
-//                        case BIRCH_BOAT:
-//                        case CHEST_MINECART:
-//                        case COMMAND_BLOCK_MINECART:
-//                        case DARK_OAK_BOAT:
-//                        case FURNACE_MINECART:
-//                        case HOPPER_MINECART:
-//                        case JUNGLE_BOAT:
-//                        case MINECART:
-//                        case OAK_BOAT:
-//                        case SPRUCE_BOAT:
-//                        case TNT_MINECART:
-//                            eventType = PlayerBlockEventType.PLACE_VEHICLE;
-//                            break;
-//                        default:
-//                            eventType = PlayerBlockEventType.INTERACT_BLOCK;
-//                            break;
-//                    }
-//                }
-//                break;
-//            }
-//            case LEFT_CLICK_BLOCK:
-//                Block block = event.getClickedBlock();
-//                location = BukkitUtil.getLocation(block.getLocation());
-//                eventType = PlayerBlockEventType.BREAK_BLOCK;
-//                lb = new BukkitLazyBlock(block);
-//                break;
-//            default:
-//                return;
-//        }
-//        if (PlotSquared.get().worldedit != null && pp.getAttribute("worldedit")) {
-//            if (player.getInventory().getItemInMainHand().getType() == Material
-//                    .getMaterial(PlotSquared.get().worldedit.getConfiguration().wandItem)) {
-//                return;
-//            }
-//        }
-//        if (!EventUtil.manager.checkPlayerBlockEvent(pp, eventType, location, lb, true)) {
-//            event.setCancelled(true);
-//        }
-//    }
+        PlayerBlockEventType eventType = null;
+        BukkitLazyBlock lb;
+        Location location;
+        Action action = event.getAction();
+        switch (action) {
+            case PHYSICAL: {
+                eventType = PlayerBlockEventType.TRIGGER_PHYSICAL;
+                Block block = event.getClickedBlock();
+                lb = new BukkitLazyBlock(block);
+                location = BukkitUtil.getLocation(block.getLocation());
+                break;
+            }
+            case RIGHT_CLICK_BLOCK: {
+                Block block = event.getClickedBlock();
+                location = BukkitUtil.getLocation(block.getLocation());
+                Material blockType = block.getType();
+                switch (blockType) {
+                    case ACACIA_DOOR:
+                    case BIRCH_DOOR:
+                    case DARK_OAK_DOOR:
+                    case IRON_DOOR:
+                    case JUNGLE_DOOR:
+                    case OAK_DOOR:
+                    case SPRUCE_DOOR:
+
+                    case ACACIA_TRAPDOOR:
+                    case BIRCH_TRAPDOOR:
+                    case DARK_OAK_TRAPDOOR:
+                    case IRON_TRAPDOOR:
+                    case JUNGLE_TRAPDOOR:
+                    case OAK_TRAPDOOR:
+                    case SPRUCE_TRAPDOOR:
+
+                    case CHEST:
+                    case ENDER_CHEST:
+                    case TRAPPED_CHEST:
+
+                    case ACACIA_FENCE_GATE:
+                    case BIRCH_FENCE_GATE:
+                    case DARK_OAK_FENCE_GATE:
+                    case OAK_FENCE_GATE:
+                    case JUNGLE_FENCE_GATE:
+                    case SPRUCE_FENCE_GATE:
+
+                    case ACACIA_BUTTON:
+                    case BIRCH_BUTTON:
+                    case DARK_OAK_BUTTON:
+                    case JUNGLE_BUTTON:
+                    case OAK_BUTTON:
+                    case SPRUCE_BUTTON:
+                    case STONE_BUTTON:
+
+                    case BLACK_BED:
+                    case BLUE_BED:
+                    case BROWN_BED:
+                    case CYAN_BED:
+                    case GRAY_BED:
+                    case GREEN_BED:
+                    case LIGHT_BLUE_BED:
+                    case LIGHT_GRAY_BED:
+                    case LIME_BED:
+                    case MAGENTA_BED:
+                    case ORANGE_BED:
+                    case PINK_BED:
+                    case PURPLE_BED:
+                    case RED_BED:
+                    case WHITE_BED:
+                    case YELLOW_BED:
+
+                    case BLACK_BANNER:
+                    case BLACK_WALL_BANNER:
+                    case BLUE_BANNER:
+                    case BLUE_WALL_BANNER:
+                    case BROWN_BANNER:
+                    case BROWN_WALL_BANNER:
+                    case CYAN_BANNER:
+                    case CYAN_WALL_BANNER:
+                    case GRAY_BANNER:
+                    case GRAY_WALL_BANNER:
+                    case GREEN_BANNER:
+                    case GREEN_WALL_BANNER:
+                    case LIGHT_BLUE_BANNER:
+                    case LIGHT_BLUE_WALL_BANNER:
+                    case LIGHT_GRAY_BANNER:
+                    case LIGHT_GRAY_WALL_BANNER:
+                    case LIME_BANNER:
+                    case LIME_WALL_BANNER:
+                    case MAGENTA_BANNER:
+                    case MAGENTA_WALL_BANNER:
+                    case ORANGE_BANNER:
+                    case ORANGE_WALL_BANNER:
+                    case PINK_BANNER:
+                    case PINK_WALL_BANNER:
+                    case PURPLE_BANNER:
+                    case PURPLE_WALL_BANNER:
+                    case RED_BANNER:
+                    case RED_WALL_BANNER:
+                    case WHITE_BANNER:
+                    case WHITE_WALL_BANNER:
+                    case YELLOW_BANNER:
+                    case YELLOW_WALL_BANNER:
+
+                    case BLACK_SHULKER_BOX:
+                    case BLUE_SHULKER_BOX:
+                    case BROWN_SHULKER_BOX:
+                    case CYAN_SHULKER_BOX:
+                    case GRAY_SHULKER_BOX:
+                    case GREEN_SHULKER_BOX:
+                    case LIGHT_BLUE_SHULKER_BOX:
+                    case LIGHT_GRAY_SHULKER_BOX:
+                    case LIME_SHULKER_BOX:
+                    case MAGENTA_SHULKER_BOX:
+                    case ORANGE_SHULKER_BOX:
+                    case PINK_SHULKER_BOX:
+                    case PURPLE_SHULKER_BOX:
+                    case RED_SHULKER_BOX:
+                    case WHITE_SHULKER_BOX:
+                    case YELLOW_SHULKER_BOX:
+
+                    case CHAIN_COMMAND_BLOCK:
+                    case REPEATING_COMMAND_BLOCK:
+
+                    case LEGACY_SIGN:
+                    case LEGACY_WALL_SIGN:
+                    case OAK_SIGN:
+                    case ACACIA_SIGN:
+                    case ACACIA_WALL_SIGN:
+                    case BIRCH_SIGN:
+                    case BIRCH_WALL_SIGN:
+                    case DARK_OAK_SIGN:
+                    case DARK_OAK_WALL_SIGN:
+                    case JUNGLE_SIGN:
+                    case JUNGLE_WALL_SIGN:
+                    case OAK_WALL_SIGN:
+                    case SPRUCE_SIGN:
+                    case SPRUCE_WALL_SIGN:
+
+                    case REDSTONE_TORCH:
+                    case REDSTONE_WALL_TORCH:
+
+                    case TURTLE_EGG:
+                    case TURTLE_HELMET:
+                    case TURTLE_SPAWN_EGG:
+
+                    case ANVIL:
+                    case BEACON:
+                    case BREWING_STAND:
+                    case CAKE:
+                    case COMMAND_BLOCK:
+                    case COMPARATOR:
+                    case CRAFTING_TABLE:
+                        //todo re-evaluate adding lectern here
+                    case LECTERN:
+                    case GRINDSTONE:
+                    case LOOM:
+                    case SMOKER:
+                    case STONECUTTER:
+                    case DISPENSER:
+                    case DROPPER:
+                    case ENCHANTING_TABLE:
+                    case FURNACE:
+                    case BLAST_FURNACE:
+                    case HOPPER:
+                    case JUKEBOX:
+                    case LEVER:
+                    case NOTE_BLOCK:
+                    case REDSTONE_ORE:
+                        eventType = PlayerBlockEventType.INTERACT_BLOCK;
+                        break;
+                    case DRAGON_EGG:
+                        eventType = PlayerBlockEventType.TELEPORT_OBJECT;
+                        break;
+                    default:
+                        if (blockType.isInteractable()) {
+                            eventType = PlayerBlockEventType.INTERACT_BLOCK;
+                        }
+                }
+                lb = new BukkitLazyBlock(PlotBlock.get(block.getType().toString()));
+                if (eventType != null && (eventType != PlayerBlockEventType.INTERACT_BLOCK
+                        || !player.isSneaking())) {
+                    break;
+                }
+                ItemStack hand = player.getInventory().getItemInMainHand();
+                ItemStack offHand = player.getInventory().getItemInOffHand();
+                Material type = (hand == null) ? Material.AIR : hand.getType();
+                Material offType = (offHand == null) ? Material.AIR : offHand.getType();
+                if ((type == Material.AIR && offType != Material.AIR && !player.isSneaking()
+                        && blockType.isInteractable()) || (type == Material.AIR
+                        && offType == Material.AIR)) {
+                    eventType = PlayerBlockEventType.INTERACT_BLOCK;
+                    break;
+                }
+                if (type == Material.AIR) {
+                    type = offType;
+                }
+                if (type.isBlock()) {
+                    location = BukkitUtil
+                            .getLocation(block.getRelative(event.getBlockFace()).getLocation());
+                    eventType = PlayerBlockEventType.PLACE_BLOCK;
+                    break;
+                }
+                lb = new BukkitLazyBlock(PlotBlock.get(type.toString()));
+                if (type.toString().toLowerCase().endsWith("egg")) {
+                    eventType = PlayerBlockEventType.SPAWN_MOB;
+                } else {
+                    switch (type) {
+                        case FIREWORK_ROCKET:
+                        case FIREWORK_STAR:
+                            eventType = PlayerBlockEventType.SPAWN_MOB;
+                            break;
+                        case ARMOR_STAND:
+                            location = BukkitUtil
+                                    .getLocation(block.getRelative(event.getBlockFace()).getLocation());
+                            eventType = PlayerBlockEventType.PLACE_MISC;
+                            break;
+                        case BOOK:
+                        case ENCHANTED_BOOK:
+                        case KNOWLEDGE_BOOK:
+                        case WRITABLE_BOOK:
+                        case WRITTEN_BOOK:
+                            eventType = PlayerBlockEventType.READ;
+                            break;
+                        case APPLE:
+                        case BAKED_POTATO:
+                        case BEEF:
+                        case BREAD:
+                        case CARROT:
+                        case CHICKEN:
+                        case COD:
+                        case COOKED_BEEF:
+                        case COOKED_CHICKEN:
+                        case COOKED_COD:
+                        case COOKED_MUTTON:
+                        case COOKED_PORKCHOP:
+                        case COOKED_RABBIT:
+                        case COOKED_SALMON:
+                        case COOKIE:
+                        case GOLDEN_CARROT:
+                        case MUSHROOM_STEW:
+                        case MUTTON:
+                        case POISONOUS_POTATO:
+                        case PORKCHOP:
+                        case POTATO:
+                        case POTION:
+                        case PUFFERFISH:
+                        case PUMPKIN_PIE:
+                        case RABBIT:
+                        case RABBIT_FOOT:
+                        case RABBIT_STEW:
+                        case SALMON:
+                        case TROPICAL_FISH:
+                            eventType = PlayerBlockEventType.EAT;
+                            break;
+                        case ACACIA_BOAT:
+                        case BIRCH_BOAT:
+                        case CHEST_MINECART:
+                        case COMMAND_BLOCK_MINECART:
+                        case DARK_OAK_BOAT:
+                        case FURNACE_MINECART:
+                        case HOPPER_MINECART:
+                        case JUNGLE_BOAT:
+                        case MINECART:
+                        case OAK_BOAT:
+                        case SPRUCE_BOAT:
+                        case TNT_MINECART:
+                            eventType = PlayerBlockEventType.PLACE_VEHICLE;
+                            return;
+                        default:
+                            eventType = PlayerBlockEventType.INTERACT_BLOCK;
+                            break;
+                    }
+                }
+                break;
+            }
+            case LEFT_CLICK_BLOCK:
+                Block block = event.getClickedBlock();
+                location = BukkitUtil.getLocation(block.getLocation());
+                eventType = PlayerBlockEventType.BREAK_BLOCK;
+                lb = new BukkitLazyBlock(block);
+                break;
+            default:
+                return;
+        }
+        if (PlotSquared.get().worldedit != null && pp.getAttribute("worldedit")) {
+            if (player.getInventory().getItemInMainHand().getType() == Material
+                    .getMaterial(PlotSquared.get().worldedit.getConfiguration().wandItem)) {
+                return;
+            }
+        }
+        if (!EventUtil.manager.checkPlayerBlockEvent(pp, eventType, location, lb, true)) {
+            event.setCancelled(true);
+        }
+    }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void creatureSpawnEvent(CreatureSpawnEvent event) {
