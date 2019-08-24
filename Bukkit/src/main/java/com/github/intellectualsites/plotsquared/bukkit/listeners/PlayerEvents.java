@@ -767,6 +767,7 @@ import java.util.regex.Pattern;
                         return;
                     }
                 }
+
                 if (Settings.Enabled_Components.KILL_ROAD_VEHICLES) {
                     switch (vehicle.getType()) {
                         //case BOAT:
