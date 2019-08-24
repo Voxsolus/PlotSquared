@@ -148,7 +148,7 @@ import java.util.regex.Pattern;
             case MINECART_HOPPER:
             case MINECART_MOB_SPAWNER:
             case MINECART_TNT:
-                return EntityUtil.checkEntity(plot, Flags.ENTITY_CAP, Flags.VEHICLE_CAP);
+                return true;//EntityUtil.checkEntity(plot, Flags.ENTITY_CAP, Flags.VEHICLE_CAP);
             case BAT:
             case CHICKEN:
             case CAT:
@@ -2111,7 +2111,7 @@ import java.util.regex.Pattern;
                         case SPRUCE_BOAT:
                         case TNT_MINECART:
                             eventType = PlayerBlockEventType.PLACE_VEHICLE;
-                            return true;
+                            break;
                         default:
                             eventType = PlayerBlockEventType.INTERACT_BLOCK;
                             break;
