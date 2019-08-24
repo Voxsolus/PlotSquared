@@ -251,15 +251,15 @@ import java.util.regex.Pattern;
                         if (!plot.isAdded(player.getUUID())) {
                             //Here the event is only canceled if the player is not the owner
                             //of the property on which he is located.
-                            e.setCancelled(true);
+                            e.setCancelled(false);
                         }
                     } else {
-                        e.setCancelled(true);
+                        e.setCancelled(false);
                     }
                 } else {
                     //Here the event is cancelled too, otherwise you can move the
                     //boat with EchoPets or other mobs running around on the plot.
-                    e.setCancelled(true);
+                    e.setCancelled(false);
                 }
             }
         }
