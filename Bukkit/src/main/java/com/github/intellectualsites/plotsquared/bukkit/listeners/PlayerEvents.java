@@ -240,30 +240,30 @@ import java.util.regex.Pattern;
         }
     }
 
-    @EventHandler public void onVehicleEntityCollision(VehicleEntityCollisionEvent e) {
-        if (e.getVehicle().getType() == EntityType.BOAT) {
-            Location location = BukkitUtil.getLocation(e.getEntity());
-            if (location.isPlotArea()) {
-                if (e.getEntity() instanceof Player) {
-                    PlotPlayer player = BukkitUtil.getPlayer((Player) e.getEntity());
-                    Plot plot = player.getCurrentPlot();
-                    if (plot != null) {
-                        if (!plot.isAdded(player.getUUID())) {
-                            //Here the event is only canceled if the player is not the owner
-                            //of the property on which he is located.
-                            e.setCancelled(false);
-                        }
-                    } else {
-                        e.setCancelled(false);
-                    }
-                } else {
-                    //Here the event is cancelled too, otherwise you can move the
-                    //boat with EchoPets or other mobs running around on the plot.
-                    e.setCancelled(false);
-                }
-            }
-        }
-    }
+//    @EventHandler public void onVehicleEntityCollision(VehicleEntityCollisionEvent e) {
+//        if (e.getVehicle().getType() == EntityType.BOAT) {
+//            Location location = BukkitUtil.getLocation(e.getEntity());
+//            if (location.isPlotArea()) {
+//                if (e.getEntity() instanceof Player) {
+//                    PlotPlayer player = BukkitUtil.getPlayer((Player) e.getEntity());
+//                    Plot plot = player.getCurrentPlot();
+//                    if (plot != null) {
+//                        if (!plot.isAdded(player.getUUID())) {
+//                            //Here the event is only canceled if the player is not the owner
+//                            //of the property on which he is located.
+//                            e.setCancelled(true);
+//                        }
+//                    } else {
+//                        e.setCancelled(true);
+//                    }
+//                } else {
+//                    //Here the event is cancelled too, otherwise you can move the
+//                    //boat with EchoPets or other mobs running around on the plot.
+//                    e.setCancelled(true);
+//                }
+//            }
+//        }
+//    }
 
     @EventHandler public void onRedstoneEvent(BlockRedstoneEvent event) {
         Block block = event.getBlock();
@@ -2099,17 +2099,17 @@ import java.util.regex.Pattern;
                         case TROPICAL_FISH:
                             eventType = PlayerBlockEventType.EAT;
                             break;
-//                        case ACACIA_BOAT:
-//                        case BIRCH_BOAT:
-//                        case CHEST_MINECART:
-//                        case COMMAND_BLOCK_MINECART:
-//                        case DARK_OAK_BOAT:
-//                        case FURNACE_MINECART:
-//                        case HOPPER_MINECART:
-//                        case JUNGLE_BOAT:
-//                        case MINECART:
-//                        case OAK_BOAT:
-//                        case SPRUCE_BOAT:
+                        case ACACIA_BOAT:
+                        case BIRCH_BOAT:
+                        case CHEST_MINECART:
+                        case COMMAND_BLOCK_MINECART:
+                        case DARK_OAK_BOAT:
+                        case FURNACE_MINECART:
+                        case HOPPER_MINECART:
+                        case JUNGLE_BOAT:
+                        case MINECART:
+                        case OAK_BOAT:
+                        case SPRUCE_BOAT:
                         case TNT_MINECART:
                             eventType = PlayerBlockEventType.PLACE_VEHICLE;
                             break;
